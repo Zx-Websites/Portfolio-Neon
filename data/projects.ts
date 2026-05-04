@@ -48,15 +48,5 @@ export const projects: Project[] = [
     liveUrl: "https://example.com/pixel-forge",
     itchUrl: "https://your-handle.itch.io/void-drift",
     year: 2024
-  },
-  {
-    id: "pixel-forge",
-    title: "sanjana ke bubu bacha sabse acha!",
-    tagline: "A tiny pixel-art editor for the browser.",
-    description: "Layered canvas, palette swap, GIF export. Zero-install web app.",
-    tags: ["Web", "TypeScript", "Tool"],
-    repoUrl: "https://github.com/your-handle/pixel-forge",
-    liveUrl: "https://example.com/pixel-forge",
-    year: 2024
   }
 ];
