@@ -27,6 +27,17 @@ export const projects: Project[] = [
     itchUrl: "https://zxdelt.itch.io/oceantank",
     year: 2026,
     featured: true
+  },
+  {
+    id: "physics-sandbox",
+    title: "Physics Sandbox",
+    tagline: "Sandbox Simulation.",
+    description:
+      "Mini Phy Sanbbox for showcase play",
+    tags: ["Unity", "C#", "Simulation"],
+    itchUrl: "https://zxdelt.itch.io/physics-sandbox",
+    year: 2026,
+    featured: true
   }
   // {
   //   id: "void-drift",
