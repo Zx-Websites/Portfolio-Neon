@@ -54,7 +54,7 @@ export default function ProjectShell({
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative flex min-h-[88vh] items-center justify-center overflow-hidden px-6 pt-32"
+        className="relative flex min-h-[88vh] items-center justify-center overflow-hidden px-6 pt-16"
       >
         <motion.div
           initial={{ opacity: 0 }}

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const links = [
@@ -11,9 +12,12 @@ const links = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [atTop, setAtTop] = useState(true);
+
+  if (pathname?.startsWith("/projects/")) return null;
 
   useMotionValueEvent(scrollY, "change", (y: number) => {
     const prev = scrollY.getPrevious() ?? 0;
