@@ -37,11 +37,9 @@ export default function Page() {
           </motion.p>
           <motion.h1
             variants={heroChild}
-            className="text-5xl sm:text-7xl font-bold leading-tight text-white neon-text"
+            className="text-6xl sm:text-8xl font-bold tracking-tight leading-[1.05] text-white neon-text"
           >
-            Building <span className="text-neon-pink">neon</span>
-            <br />
-            worlds in code.
+            Jayant <span className="text-neon-pink">Bodse</span>
           </motion.h1>
           <motion.p
             variants={heroChild}
@@ -117,22 +115,22 @@ export default function Page() {
           </p>
           <div className="flex flex-wrap gap-2">
             <motion.a
-              href="mailto:you@example.com"
+              href="mailto:j.bodse98@gmail.com"
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
               className="rounded-md border border-neon-cyan/60 bg-neon-cyan/10 px-3 py-1.5 text-xs font-mono text-neon-cyan hover:bg-neon-cyan/20"
             >
-              email →
+              j.bodse98@gmail.com →
             </motion.a>
             <motion.a
-              href="https://your-handle.itch.io"
+              href="https://www.instagram.com/zx_origin_?igsh=MXJiamt5amhqMHVjZA%3D%3D&utm_source=qr"
               target="_blank"
               rel="noreferrer"
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
               className="rounded-md border border-neon-pink/60 bg-neon-pink/10 px-3 py-1.5 text-xs font-mono text-neon-pink hover:bg-neon-pink/20"
             >
-              itch.io →
+              instagram →
             </motion.a>
           </div>
         </div>
