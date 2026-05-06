@@ -17,14 +17,14 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [atTop, setAtTop] = useState(true);
 
-  if (pathname?.startsWith("/projects/")) return null;
-
   useMotionValueEvent(scrollY, "change", (y: number) => {
     const prev = scrollY.getPrevious() ?? 0;
     setAtTop(y < 10);
     if (y > prev && y > 80) setHidden(true);
     else if (y < prev) setHidden(false);
   });
+
+  if (pathname?.startsWith("/projects/")) return null;
 
   return (
     <motion.header
