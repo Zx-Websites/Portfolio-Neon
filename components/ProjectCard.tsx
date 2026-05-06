@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { Project } from "@/data/projects";
+import { THUMBS } from "@/components/projects/Thumbnails";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const Thumb = THUMBS[project.id];
   return (
     <motion.article
       variants={{
@@ -42,14 +44,29 @@ export default function ProjectCard({ project }: { project: Project }) {
         className="block focus:outline-none"
         aria-label={`Open ${project.title} project page`}
       >
-        <div className="mb-4 aspect-video w-full overflow-hidden rounded-lg grid-bg animate-grid-move bg-black/40 transition-transform group-hover:scale-[1.02]">
-          {project.cover && (
+        <div className="mb-4 aspect-video w-full overflow-hidden rounded-lg bg-black/40 transition-transform group-hover:scale-[1.02]">
+          {Thumb ? (
+            <div className="relative h-full w-full">
+              <Thumb />
+              {/* subtle vignette so the title stays readable on contrasty thumbs */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, transparent 60%, rgba(5,6,10,0.55) 100%)"
+                }}
+              />
+            </div>
+          ) : project.cover ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={project.cover}
               alt={project.title}
               className="h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
             />
+          ) : (
+            <div className="grid-bg animate-grid-move h-full w-full" />
           )}
         </div>
 
