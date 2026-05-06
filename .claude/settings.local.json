@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"F:/Unity Projects/Experiment/Assets\")",
+      "Read(//f/Unity Projects/Experiment/Assets/**)",
+      "Bash(ls \"F:/Unity Projects/Experiment\" 2>&1 | head -30)",
+      "Read(//f/Unity Projects/Experiment/**)",
+      "Bash(npx next *)",
+      "Bash(curl -s -o nul -w \"%{http_code}\" http://localhost:3737/projects/particle-galaxy)",
+      "Bash(curl -s -o nul -w \"%{http_code}\" http://localhost:3737/projects/physics-sandbox)",
+      "Bash(curl -s -o nul -w \"%{http_code}\" http://localhost:3737/projects/ocean-tank)",
+      "Bash(curl -s -o nul -w \"%{http_code}\" http://localhost:3737/projects/does-not-exist)",
+      "Bash(curl -s http://localhost:3737/projects/particle-galaxy)",
+      "Bash(curl -s http://localhost:3737/projects/ocean-tank)",
+      "Bash(curl -s http://localhost:3737/)"
+    ]
+  }
+}

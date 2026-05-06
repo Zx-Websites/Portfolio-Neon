@@ -1,0 +1,524 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+const drawTransition = (delay = 0) => ({
+  duration: 1.6,
+  ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+  delay
+});
+
+/* ---------- generic frame ---------- */
+
+export function DiagramFrame({
+  title,
+  caption,
+  children,
+  height = 320
+}: {
+  title?: string;
+  caption?: string;
+  children: React.ReactNode;
+  height?: number;
+}) {
+  return (
+    <motion.figure
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="my-8 overflow-hidden rounded-2xl border border-white/10 bg-panel/40 backdrop-blur"
+    >
+      {title && (
+        <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">
+            {title}
+          </span>
+          <span className="flex gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-neon-pink/70" />
+            <span className="h-1.5 w-1.5 rounded-full bg-neon-cyan/70" />
+            <span className="h-1.5 w-1.5 rounded-full bg-neon-lime/70" />
+          </span>
+        </div>
+      )}
+      <div className="relative" style={{ height }}>
+        {children}
+      </div>
+      {caption && (
+        <figcaption className="border-t border-white/10 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+          {caption}
+        </figcaption>
+      )}
+    </motion.figure>
+  );
+}
+
+/* ---------- Particle Galaxy: live orbital simulation ---------- */
+
+export function GalaxyDiagram() {
+  // Pre-computed deterministic particles so SSR + client match
+  const particles = Array.from({ length: 60 }).map((_, i) => {
+    const a = (i * 137.508 * Math.PI) / 180;
+    const r = 30 + ((i * 7) % 90);
+    return { i, a, r, hue: (i * 11) % 360 };
+  });
+
+  return (
+    <DiagramFrame title="orbital sim · gravity well + spin" caption="centre is the gravity attractor">
+      <svg viewBox="-180 -120 360 240" className="absolute inset-0 h-full w-full">
+        <defs>
+          <radialGradient id="gw" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="40%" stopColor="#ff2bd6" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#9d00ff" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* gravity well center */}
+        <motion.circle
+          cx={0}
+          cy={0}
+          r={28}
+          fill="url(#gw)"
+          animate={{ r: [22, 30, 22], opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <circle cx={0} cy={0} r={3} fill="#fff" />
+
+        {/* orbit guide rings */}
+        {[40, 70, 100].map((r) => (
+          <motion.circle
+            key={r}
+            cx={0}
+            cy={0}
+            r={r}
+            fill="none"
+            stroke="#00f0ff"
+            strokeWidth={0.4}
+            strokeDasharray="2 4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 0.35 }}
+            viewport={{ once: true }}
+            transition={drawTransition(0.2)}
+          />
+        ))}
+
+        {/* particles orbiting */}
+        {particles.map((p) => {
+          const period = 6 + (p.r / 12);
+          return (
+            <motion.g
+              key={p.i}
+              animate={{ rotate: 360 }}
+              transition={{ duration: period, repeat: Infinity, ease: "linear" }}
+              style={{ transformOrigin: "0px 0px" }}
+            >
+              <motion.circle
+                cx={p.r * Math.cos(p.a)}
+                cy={p.r * Math.sin(p.a) * 0.6}
+                r={1.4}
+                fill={`hsl(${p.hue}, 95%, 65%)`}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 0.9 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 + p.i * 0.01 }}
+                style={{ filter: "drop-shadow(0 0 3px currentColor)" }}
+              />
+            </motion.g>
+          );
+        })}
+
+        {/* arrows showing forces */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <Arrow from={[80, -50]} to={[20, -10]} color="#ff2bd6" label="gravity 1/r²" />
+          <Arrow from={[-90, 40]} to={[-30, 20]} color="#00f0ff" label="spin ⊥" />
+        </motion.g>
+      </svg>
+    </DiagramFrame>
+  );
+}
+
+function Arrow({
+  from,
+  to,
+  color,
+  label
+}: {
+  from: [number, number];
+  to: [number, number];
+  color: string;
+  label?: string;
+}) {
+  const id = `arr-${from[0]}-${to[0]}`;
+  return (
+    <g>
+      <defs>
+        <marker
+          id={id}
+          markerWidth="6"
+          markerHeight="6"
+          refX="5"
+          refY="3"
+          orient="auto"
+          markerUnits="strokeWidth"
+        >
+          <path d="M0,0 L0,6 L5,3 z" fill={color} />
+        </marker>
+      </defs>
+      <motion.line
+        x1={from[0]}
+        y1={from[1]}
+        x2={to[0]}
+        y2={to[1]}
+        stroke={color}
+        strokeWidth={1}
+        markerEnd={`url(#${id})`}
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={drawTransition(0.6)}
+        style={{ filter: `drop-shadow(0 0 3px ${color})` }}
+      />
+      {label && (
+        <text
+          x={from[0]}
+          y={from[1] - 6}
+          fill={color}
+          fontSize="8"
+          fontFamily="ui-monospace, monospace"
+          opacity={0.85}
+        >
+          {label}
+        </text>
+      )}
+    </g>
+  );
+}
+
+/* ---------- Falling Sand: cellular automata grid ---------- */
+
+export function CellularGridDiagram() {
+  // 9x9 grid showing sand falling, water spreading, fire rising
+  const W = 11;
+  const H = 8;
+  const cellW = 28;
+  const cellH = 28;
+  const totalW = W * cellW;
+  const totalH = H * cellH;
+
+  type Cell = { type: "sand" | "water" | "stone" | "fire" | "wood" | "smoke" | "air"; flash?: boolean };
+  const grid: Cell[][] = Array.from({ length: H }, () =>
+    Array.from({ length: W }, () => ({ type: "air" as Cell["type"] }))
+  );
+  // floor of stone
+  for (let x = 0; x < W; x++) grid[0][x] = { type: "stone" };
+  // wood pillar
+  grid[1][2] = { type: "wood" };
+  grid[2][2] = { type: "wood" };
+  // water pool
+  for (let x = 5; x < 9; x++) grid[1][x] = { type: "water" };
+  // sand pile
+  grid[2][6] = { type: "sand" };
+  grid[3][6] = { type: "sand" };
+  grid[4][6] = { type: "sand" };
+  // fire on wood
+  grid[3][2] = { type: "fire", flash: true };
+  // smoke above
+  grid[5][2] = { type: "smoke" };
+  grid[6][2] = { type: "smoke" };
+
+  const colors: Record<Cell["type"], string> = {
+    air: "transparent",
+    sand: "#dac478",
+    water: "#3882d2",
+    stone: "#707078",
+    wood: "#704c28",
+    fire: "#ffc85a",
+    smoke: "#505056",
+    air2: "transparent"
+  } as Record<Cell["type"], string>;
+
+  return (
+    <DiagramFrame title="cellular automata · 256² grid" height={totalH + 40} caption="each cell = 6 bytes · solver runs bottom-up then top-down">
+      <svg
+        viewBox={`-10 -10 ${totalW + 20} ${totalH + 20}`}
+        className="absolute inset-0 h-full w-full"
+      >
+        {/* gridlines */}
+        {Array.from({ length: W + 1 }).map((_, x) => (
+          <line
+            key={`vx${x}`}
+            x1={x * cellW}
+            y1={0}
+            x2={x * cellW}
+            y2={totalH}
+            stroke="#00f0ff"
+            strokeOpacity={0.1}
+            strokeWidth={0.5}
+          />
+        ))}
+        {Array.from({ length: H + 1 }).map((_, y) => (
+          <line
+            key={`hy${y}`}
+            x1={0}
+            y1={y * cellH}
+            x2={totalW}
+            y2={y * cellH}
+            stroke="#00f0ff"
+            strokeOpacity={0.1}
+            strokeWidth={0.5}
+          />
+        ))}
+
+        {/* cells (flip y so y=0 is bottom) */}
+        {grid.map((row, y) =>
+          row.map((cell, x) => {
+            if (cell.type === "air") return null;
+            const py = totalH - (y + 1) * cellH;
+            const fillColor = colors[cell.type];
+            return (
+              <motion.rect
+                key={`${x}-${y}`}
+                x={x * cellW + 1}
+                y={py + 1}
+                width={cellW - 2}
+                height={cellH - 2}
+                rx={2}
+                fill={fillColor}
+                initial={{ opacity: 0, scale: 0.4 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: 0.2 + (x + y) * 0.04,
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 22
+                }}
+                animate={
+                  cell.flash
+                    ? {
+                        opacity: [0.7, 1, 0.7],
+                        fill: ["#ffa040", "#ffe680", "#ffa040"]
+                      }
+                    : undefined
+                }
+                style={{
+                  filter: cell.flash
+                    ? "drop-shadow(0 0 6px #ffaa40)"
+                    : cell.type === "water"
+                    ? "drop-shadow(0 0 4px #3882d2aa)"
+                    : undefined
+                }}
+              />
+            );
+          })
+        )}
+
+        {/* falling-sand arrows */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.2 }}
+        >
+          <FallingArrow x={6 * cellW + cellW / 2} top={totalH - 5 * cellH} bottom={totalH - 4 * cellH} color="#dac478" />
+        </motion.g>
+
+        {/* rising fire arrow */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.4 }}
+        >
+          <RisingArrow x={2 * cellW + cellW / 2} top={totalH - 7 * cellH} bottom={totalH - 4 * cellH} color="#ffc85a" />
+        </motion.g>
+      </svg>
+    </DiagramFrame>
+  );
+}
+
+function FallingArrow({ x, top, bottom, color }: { x: number; top: number; bottom: number; color: string }) {
+  return (
+    <motion.g
+      animate={{ y: [0, 10, 0] }}
+      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <line x1={x} y1={top} x2={x} y2={bottom} stroke={color} strokeWidth={1.5} strokeDasharray="3 3" />
+      <path d={`M${x - 4},${bottom - 4} L${x},${bottom} L${x + 4},${bottom - 4}`} fill={color} />
+    </motion.g>
+  );
+}
+
+function RisingArrow({ x, top, bottom, color }: { x: number; top: number; bottom: number; color: string }) {
+  return (
+    <motion.g
+      animate={{ y: [0, -8, 0] }}
+      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <line x1={x} y1={top} x2={x} y2={bottom} stroke={color} strokeWidth={1.5} strokeDasharray="3 3" />
+      <path d={`M${x - 4},${top + 4} L${x},${top} L${x + 4},${top + 4}`} fill={color} />
+    </motion.g>
+  );
+}
+
+/* ---------- Ocean Tank: ripple wave propagation ---------- */
+
+export function RippleDiagram() {
+  // Animated wave on a height grid
+  const W = 240;
+  const H = 160;
+
+  return (
+    <DiagramFrame title="GPU water sim · ping-pong texture" caption="each pixel stores [height, velocity] · neighbours pull each other">
+      <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full">
+        <defs>
+          <linearGradient id="water-g" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#00f0ff" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#9d00ff" stopOpacity="0.2" />
+          </linearGradient>
+          <radialGradient id="ripple-g">
+            <stop offset="0%" stopColor="#fff" stopOpacity="0.9" />
+            <stop offset="60%" stopColor="#00f0ff" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#00f0ff" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* glass tank outline */}
+        <rect x={6} y={6} width={W - 12} height={H - 12} fill="none" stroke="#fff" strokeOpacity={0.15} strokeWidth={0.6} rx={4} />
+
+        {/* sand floor */}
+        <rect x={6} y={H - 22} width={W - 12} height={16} fill="#3a2a18" opacity={0.6} />
+
+        {/* water surface — sine wave that animates */}
+        <WaterSurface w={W} h={H} />
+
+        {/* expanding ripples */}
+        {[0, 1.2, 2.4].map((delay, i) => (
+          <motion.circle
+            key={i}
+            cx={W / 2}
+            cy={56}
+            r={4}
+            fill="url(#ripple-g)"
+            animate={{ r: [4, 70, 4], opacity: [0.9, 0, 0.9] }}
+            transition={{ duration: 3.2, repeat: Infinity, delay, ease: "easeOut" }}
+          />
+        ))}
+
+        {/* drop point */}
+        <motion.circle
+          cx={W / 2}
+          cy={56}
+          r={2.4}
+          fill="#fff"
+          animate={{ opacity: [1, 0.4, 1], r: [2, 3, 2] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* neighbour-pull arrows (centre cell + 4 neighbours) */}
+        <g transform={`translate(40, ${H - 80})`}>
+          <NeighborStencil />
+        </g>
+      </svg>
+    </DiagramFrame>
+  );
+}
+
+function WaterSurface({ w, h }: { w: number; h: number }) {
+  const baseline = 70;
+  const samples = 50;
+  const points = Array.from({ length: samples + 1 }).map((_, i) => (i * w) / samples);
+
+  return (
+    <motion.g>
+      {[0, 1, 2].map((layer) => (
+        <motion.path
+          key={layer}
+          fill={layer === 0 ? "url(#water-g)" : "none"}
+          stroke={layer === 0 ? "none" : "#00f0ff"}
+          strokeOpacity={layer === 0 ? 0 : 0.4 / layer}
+          strokeWidth={0.6}
+          animate={{
+            d: [
+              pathD(points, baseline, h, 0, layer),
+              pathD(points, baseline, h, Math.PI, layer),
+              pathD(points, baseline, h, 2 * Math.PI, layer)
+            ]
+          }}
+          transition={{
+            duration: 5 + layer,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+      ))}
+    </motion.g>
+  );
+}
+
+function pathD(xs: number[], baseline: number, h: number, phase: number, layer: number) {
+  const amp = 4 - layer;
+  const freq = 0.08 + layer * 0.04;
+  const path = xs
+    .map((x, i) => {
+      const y = baseline + Math.sin(x * freq + phase + layer) * amp;
+      return `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
+  if (layer === 0) {
+    return `${path} L${xs[xs.length - 1]},${h} L0,${h} Z`;
+  }
+  return path;
+}
+
+function NeighborStencil() {
+  const s = 14;
+  const cells: { dx: number; dy: number; label: string; color: string }[] = [
+    { dx: 0, dy: 0, label: "h", color: "#fff" },
+    { dx: 1, dy: 0, label: "→", color: "#00f0ff" },
+    { dx: -1, dy: 0, label: "←", color: "#00f0ff" },
+    { dx: 0, dy: -1, label: "↑", color: "#00f0ff" },
+    { dx: 0, dy: 1, label: "↓", color: "#00f0ff" }
+  ];
+  return (
+    <g>
+      {cells.map((c) => (
+        <motion.g
+          key={c.label}
+          initial={{ opacity: 0, scale: 0.6 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <rect
+            x={c.dx * s + 30 - s / 2}
+            y={c.dy * s + 30 - s / 2}
+            width={s}
+            height={s}
+            fill={c.dx === 0 && c.dy === 0 ? "#ff2bd633" : "#0b0d14"}
+            stroke={c.color}
+            strokeOpacity={0.5}
+            strokeWidth={0.6}
+            rx={1.5}
+          />
+          <text
+            x={c.dx * s + 30}
+            y={c.dy * s + 33}
+            textAnchor="middle"
+            fill={c.color}
+            fontSize="7"
+            fontFamily="ui-monospace, monospace"
+          >
+            {c.label}
+          </text>
+        </motion.g>
+      ))}
+    </g>
+  );
+}
