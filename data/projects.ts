@@ -38,6 +38,17 @@ export const projects: Project[] = [
     itchUrl: "https://zxdelt.itch.io/physics-sandbox",
     year: 2026,
     featured: true
+  },
+  {
+    id: "particle-galaxy",
+    title: "Particle Galaxy",
+    tagline: "Particle Simulation.",
+    description:
+      "Mini Galaxy with stars for showcase play",
+    tags: ["Unity", "C#", "Simulation"],
+    itchUrl: "https://zxdelt.itch.io/particle-galaxy",
+    year: 2026,
+    featured: true
   }
   // {
   //   id: "void-drift",
