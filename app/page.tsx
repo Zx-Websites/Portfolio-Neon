@@ -132,6 +132,16 @@ export default function Page() {
             >
               instagram →
             </motion.a>
+            <motion.a
+              href="https://www.linkedin.com/in/jayant-bodse-21ab621a6/"
+              target="_blank"
+              rel="noreferrer"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.95 }}
+              className="rounded-md border border-neon-purple/60 bg-neon-purple/10 px-3 py-1.5 text-xs font-mono text-neon-purple hover:bg-neon-purple/20"
+            >
+              linkedin →
+            </motion.a>
           </div>
         </div>
         <p className="mt-10 text-center font-mono text-[10px] uppercase tracking-widest text-white/30">

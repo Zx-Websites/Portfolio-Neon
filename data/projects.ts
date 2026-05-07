@@ -50,16 +50,8 @@ export const projects: Project[] = [
     year: 2026,
     featured: true
   }
-  // {
-  //   id: "void-drift",
-  //   title: "Void Drift",
-  //   tagline: "Zero-gravity racing prototype.",
-  //   description:
-  //     "Physics-based ship racing across procedurally lit tunnels. Local split-screen support.",
-  //   tags: ["Godot", "GDScript", "Prototype"],
-  //   itchUrl: "https://your-handle.itch.io/void-drift",
-  //   year: 2024
-  // },
+  
+  
   // {
   //   id: "pixel-forge",
   //   title: "Pixel Forge",

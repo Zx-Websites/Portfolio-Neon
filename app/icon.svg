@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="b" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0a0118"/>
+      <stop offset="100%" stop-color="#1a0235"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fff"/>
+      <stop offset="100%" stop-color="#9be8ff"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fff"/>
+      <stop offset="40%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#ff2bd6" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="32" height="32" rx="6" fill="url(#b)"/>
+
+  <!-- exhaust flame -->
+  <path d="M14 22 Q16 30 18 22 Q17 26 16 27 Q15 26 14 22 Z" fill="url(#flame)"/>
+
+  <!-- body -->
+  <path d="M16 4 C20 8 21 13 21 17 L21 22 L11 22 L11 17 C11 13 12 8 16 4 Z"
+        fill="url(#body)" stroke="#00f0ff" stroke-width="0.8"/>
+
+  <!-- side fins -->
+  <path d="M11 17 L7 21 L7 23 L11 22 Z" fill="#ff2bd6"/>
+  <path d="M21 17 L25 21 L25 23 L21 22 Z" fill="#ff2bd6"/>
+
+  <!-- porthole -->
+  <circle cx="16" cy="13" r="2.4" fill="#0a0118" stroke="#00f0ff" stroke-width="0.9"/>
+  <circle cx="15.3" cy="12.3" r="0.7" fill="#9be8ff"/>
+</svg>
