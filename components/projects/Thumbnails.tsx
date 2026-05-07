@@ -365,10 +365,135 @@ export function OceanTankThumb() {
   );
 }
 
+/* -------- Kaleidoscope -------- */
+
+export function KaleidoscopeThumb() {
+  // 12-segment kaleidoscope, drawn as 12 rotated copies of a single neon wedge.
+  // The wedge content is deterministic so SSR + client agree.
+  const SEGMENTS = 12;
+  const cx = VW / 2;
+  const cy = VH / 2;
+
+  // ribbons inside one wedge (will be mirrored & repeated by SEGMENTS)
+  const ribbons = [
+    { color: "#00f0ff", phase: 0, amp: 22, freq: 1.7 },
+    { color: "#ff2bd6", phase: 0.6, amp: 16, freq: 2.3 },
+    { color: "#9d00ff", phase: 1.2, amp: 12, freq: 2.9 },
+    { color: "#ffe680", phase: 1.8, amp: 8, freq: 3.5 }
+  ];
+
+  // sample the ribbon as a polyline
+  const samples = 30;
+  const wedgeAngle = (2 * Math.PI) / SEGMENTS; // half-angle = wedgeAngle/2
+
+  function ribbonPath(amp: number, freq: number, phase: number, mirror: boolean) {
+    // ribbon lives along radial axis (theta=0 baseline), oscillates in theta direction
+    const points: string[] = [];
+    for (let i = 0; i <= samples; i++) {
+      const t = i / samples;
+      const r = 8 + t * 75; // from inner radius to outer
+      const theta = Math.sin(t * Math.PI * freq + phase) * (amp / 1000); // small angle wiggle
+      const sign = mirror ? -1 : 1;
+      const x = r * Math.cos(sign * theta);
+      const y = r * Math.sin(sign * theta);
+      points.push(`${i === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`);
+    }
+    return points.join(" ");
+  }
+
+  return (
+    <svg viewBox={`0 0 ${VW} ${VH}`} className="h-full w-full">
+      <defs>
+        <radialGradient id="k-bg" cx="50%" cy="50%" r="60%">
+          <stop offset="0%" stopColor="#1a0235" />
+          <stop offset="60%" stopColor="#08020e" />
+          <stop offset="100%" stopColor="#020108" />
+        </radialGradient>
+        <radialGradient id="k-core" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+          <stop offset="50%" stopColor="#ff2bd6" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#9d00ff" stopOpacity="0" />
+        </radialGradient>
+        <filter id="k-blur" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="0.4" />
+        </filter>
+      </defs>
+
+      <rect x={0} y={0} width={VW} height={VH} fill="url(#k-bg)" />
+
+      {/* slow rotation of the whole mandala */}
+      <motion.g
+        animate={{ rotate: 360 }}
+        transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: `${cx}px ${cy}px` }}
+      >
+        <g transform={`translate(${cx} ${cy})`}>
+          {/* SEGMENTS slices, each containing the same wedge content (mirrored half + half) */}
+          {Array.from({ length: SEGMENTS }).map((_, segIdx) => {
+            const baseAngle = (segIdx * 360) / SEGMENTS;
+            return (
+              <g key={segIdx} transform={`rotate(${baseAngle})`}>
+                {ribbons.map((rb, i) => (
+                  <g key={i} filter="url(#k-blur)">
+                    <path
+                      d={ribbonPath(rb.amp, rb.freq, rb.phase, false)}
+                      stroke={rb.color}
+                      strokeWidth={1.4}
+                      fill="none"
+                      strokeOpacity={0.85}
+                      style={{ filter: `drop-shadow(0 0 3px ${rb.color})` }}
+                    />
+                    <path
+                      d={ribbonPath(rb.amp, rb.freq, rb.phase, true)}
+                      stroke={rb.color}
+                      strokeWidth={1.4}
+                      fill="none"
+                      strokeOpacity={0.85}
+                      style={{ filter: `drop-shadow(0 0 3px ${rb.color})` }}
+                    />
+                  </g>
+                ))}
+              </g>
+            );
+          })}
+
+          {/* center glow + pulse rings */}
+          <motion.circle
+            r={20}
+            fill="url(#k-core)"
+            animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <circle r={2.5} fill="#fff" />
+        </g>
+      </motion.g>
+
+      {/* counter-rotating shimmer ring for extra depth */}
+      <motion.g
+        animate={{ rotate: -360 }}
+        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: `${cx}px ${cy}px` }}
+      >
+        <circle
+          cx={cx}
+          cy={cy}
+          r={70}
+          fill="none"
+          stroke="#00f0ff"
+          strokeOpacity={0.18}
+          strokeWidth={0.6}
+          strokeDasharray="2 6"
+        />
+      </motion.g>
+    </svg>
+  );
+}
+
 /* -------- Map -------- */
 
 export const THUMBS: Record<string, React.ComponentType> = {
   "particle-galaxy": ParticleGalaxyThumb,
   "physics-sandbox": PhysicsSandboxThumb,
-  "ocean-tank": OceanTankThumb
+  "ocean-tank": OceanTankThumb,
+  "kaleidoscope": KaleidoscopeThumb
 };

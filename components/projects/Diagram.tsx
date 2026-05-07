@@ -477,6 +477,188 @@ function pathD(xs: number[], baseline: number, h: number, phase: number, layer: 
   return path;
 }
 
+/* ---------- Kaleidoscope: polar fold + symmetry ---------- */
+
+export function KaleidoscopeDiagram() {
+  // Left: a single wedge with one ribbon. Right: same wedge replicated 12x with mirror.
+  const SEGMENTS = 12;
+
+  const ribbonD = (function () {
+    const parts: string[] = [];
+    for (let i = 0; i <= 24; i++) {
+      const t = i / 24;
+      const r = 8 + t * 56;
+      const theta = Math.sin(t * Math.PI * 1.7) * 0.06;
+      parts.push(`${i === 0 ? "M" : "L"}${(r * Math.cos(theta)).toFixed(1)},${(r * Math.sin(theta)).toFixed(1)}`);
+    }
+    return parts.join(" ");
+  })();
+
+  return (
+    <DiagramFrame
+      title="polar fold · the kaleidoscope trick"
+      caption="one wedge of art, mirrored & repeated N times around the center"
+      height={300}
+    >
+      <svg viewBox="0 0 360 200" className="absolute inset-0 h-full w-full">
+        <defs>
+          <radialGradient id="kd-bg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#1a0235" />
+            <stop offset="100%" stopColor="#05020a" />
+          </radialGradient>
+          <radialGradient id="kd-core" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fff" />
+            <stop offset="100%" stopColor="#ff2bd6" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <rect x={0} y={0} width={360} height={200} fill="url(#kd-bg)" />
+
+        {/* LEFT panel — single wedge */}
+        <g transform="translate(80, 100)">
+          <text
+            x={0}
+            y={-78}
+            textAnchor="middle"
+            fill="#00f0ff"
+            fontSize="9"
+            fontFamily="ui-monospace, monospace"
+            opacity={0.7}
+          >
+            ONE WEDGE
+          </text>
+
+          {/* wedge boundary */}
+          <motion.path
+            d={`M0,0 L${64 * Math.cos(-Math.PI / 12)},${64 * Math.sin(-Math.PI / 12)} A64,64 0 0,1 ${64 * Math.cos(Math.PI / 12)},${64 * Math.sin(Math.PI / 12)} Z`}
+            fill="#ff2bd6"
+            fillOpacity={0.08}
+            stroke="#ff2bd6"
+            strokeOpacity={0.4}
+            strokeWidth={0.5}
+            strokeDasharray="2 3"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          />
+
+          {/* ribbon inside wedge */}
+          <motion.path
+            d={ribbonD}
+            stroke="#00f0ff"
+            strokeWidth={1.6}
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 0.95 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, delay: 0.4 }}
+            style={{ filter: "drop-shadow(0 0 3px #00f0ff)" }}
+          />
+
+          <circle r={2} fill="#fff" />
+        </g>
+
+        {/* arrow */}
+        <motion.g
+          initial={{ opacity: 0, x: -10 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+        >
+          <line x1={155} y1={100} x2={195} y2={100} stroke="#9d00ff" strokeWidth={1.2} />
+          <path d="M195,100 L188,96 L188,104 Z" fill="#9d00ff" />
+          <text
+            x={175}
+            y={92}
+            textAnchor="middle"
+            fill="#9d00ff"
+            fontSize="8"
+            fontFamily="ui-monospace, monospace"
+          >
+            fold ×12
+          </text>
+        </motion.g>
+
+        {/* RIGHT panel — full mandala */}
+        <g transform="translate(280, 100)">
+          <text
+            x={0}
+            y={-78}
+            textAnchor="middle"
+            fill="#00f0ff"
+            fontSize="9"
+            fontFamily="ui-monospace, monospace"
+            opacity={0.7}
+          >
+            12 SEGMENTS
+          </text>
+
+          {/* outer guide circle */}
+          <circle r={64} fill="none" stroke="#fff" strokeOpacity={0.08} strokeWidth={0.4} />
+
+          {/* SEGMENTS rotated copies of the ribbon — both sides (mirror) */}
+          {Array.from({ length: SEGMENTS }).map((_, i) => {
+            const angle = (i * 360) / SEGMENTS;
+            return (
+              <motion.g
+                key={i}
+                transform={`rotate(${angle})`}
+                initial={{ opacity: 0, scale: 0.6 }}
+                whileInView={{ opacity: 0.9, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.4 + i * 0.04, duration: 0.5 }}
+              >
+                <path
+                  d={ribbonD}
+                  stroke="#00f0ff"
+                  strokeWidth={1.2}
+                  fill="none"
+                  style={{ filter: "drop-shadow(0 0 2px #00f0ff)" }}
+                />
+                <g transform="scale(1, -1)">
+                  <path
+                    d={ribbonD}
+                    stroke="#ff2bd6"
+                    strokeWidth={1.2}
+                    fill="none"
+                    style={{ filter: "drop-shadow(0 0 2px #ff2bd6)" }}
+                  />
+                </g>
+              </motion.g>
+            );
+          })}
+
+          {/* radial guide lines for the wedge boundaries */}
+          {Array.from({ length: SEGMENTS }).map((_, i) => {
+            const a = (i * 2 * Math.PI) / SEGMENTS;
+            return (
+              <line
+                key={`g${i}`}
+                x1={0}
+                y1={0}
+                x2={64 * Math.cos(a)}
+                y2={64 * Math.sin(a)}
+                stroke="#fff"
+                strokeOpacity={0.06}
+                strokeWidth={0.3}
+              />
+            );
+          })}
+
+          <motion.circle
+            r={9}
+            fill="url(#kd-core)"
+            animate={{ scale: [0.85, 1.15, 0.85], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <circle r={1.6} fill="#fff" />
+        </g>
+      </svg>
+    </DiagramFrame>
+  );
+}
+
 function NeighborStencil() {
   const s = 14;
   const cells: { dx: number; dy: number; label: string; color: string }[] = [

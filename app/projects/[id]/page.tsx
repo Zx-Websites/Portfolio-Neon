@@ -4,6 +4,7 @@ import ProjectShell from "@/components/projects/ProjectShell";
 import ParticleGalaxyContent, { particleGalaxyGlyph } from "@/components/projects/content/ParticleGalaxyContent";
 import FallingSandContent, { fallingSandGlyph } from "@/components/projects/content/FallingSandContent";
 import OceanTankContent, { oceanTankGlyph } from "@/components/projects/content/OceanTankContent";
+import KaleidoscopeContent, { kaleidoscopeGlyph } from "@/components/projects/content/KaleidoscopeContent";
 import type { Metadata } from "next";
 
 type Accent = "cyan" | "pink" | "lime" | "purple";
@@ -26,6 +27,11 @@ const REGISTRY: Record<
     accent: "cyan",
     glyph: oceanTankGlyph,
     Content: OceanTankContent
+  },
+  "kaleidoscope": {
+    accent: "pink",
+    glyph: kaleidoscopeGlyph,
+    Content: KaleidoscopeContent
   }
 };
 

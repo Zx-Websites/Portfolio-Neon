@@ -49,8 +49,18 @@ export const projects: Project[] = [
     itchUrl: "https://zxdelt.itch.io/particle-galaxy",
     year: 2026,
     featured: true
+  },
+  {
+    id: "kaleidoscope",
+    title: "Kaleidoscope",
+    tagline: "a wierd thing people like to see",
+    description:
+      "now with music integration",
+    tags: ["Unity", "C#", "Simulation"],
+    itchUrl: "https://zxdelt.itch.io/kaleidoscope",
+    year: 2026,
+    featured: true
   }
-  
   
   // {
   //   id: "pixel-forge",
