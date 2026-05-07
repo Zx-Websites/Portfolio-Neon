@@ -83,13 +83,10 @@ export default function Page() {
       </Section>
 
       <Section id="projects" className="mx-auto max-w-6xl px-6 py-24">
-        <div className="mb-10 flex items-end justify-between">
+        <div className="mb-10">
           <h2 className="text-3xl font-bold text-white">
             <span className="text-neon-pink">#</span> projects
           </h2>
-          <span className="font-mono text-xs text-white/40">
-            {projects.length} entries · edit data/projects.ts
-          </span>
         </div>
 
         <motion.div
