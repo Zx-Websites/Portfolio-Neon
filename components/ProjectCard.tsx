@@ -1,14 +1,21 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import { useRef } from "react";
 import type { Project } from "@/data/projects";
 import { THUMBS } from "@/components/projects/Thumbnails";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const Thumb = THUMBS[project.id];
+  const cardRef = useRef<HTMLElement>(null);
+  // Only mount the animated thumbnail when the card is near the viewport.
+  // Using once:false so the thumb pauses (unmounts) when scrolled past again.
+  const inView = useInView(cardRef, { margin: "200px 0px" });
+
   return (
     <motion.article
+      ref={cardRef}
       variants={{
         hidden: { opacity: 0, y: 24 },
         show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 220, damping: 24 } }
@@ -17,15 +24,17 @@ export default function ProjectCard({ project }: { project: Project }) {
       transition={{ type: "spring", stiffness: 300, damping: 22 }}
       className="group relative overflow-hidden rounded-2xl bg-panel/60 p-5 neon-border"
     >
-      {/* shimmer that sweeps on hover */}
+      {/* shimmer that sweeps on hover — animation runs only on hover (whileHover) so
+          inactive cards don't burn frames. */}
       <motion.span
         aria-hidden
         className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 opacity-0 group-hover:opacity-100"
         style={{
           background: "linear-gradient(90deg, transparent, rgba(0,240,255,0.18), transparent)"
         }}
-        animate={{ x: ["-100%", "350%"] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        initial={{ x: "-100%" }}
+        whileHover={{ x: "350%" }}
+        transition={{ duration: 1.4, ease: "easeInOut" }}
       />
 
       {project.featured && (
@@ -47,7 +56,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         <div className="mb-4 aspect-video w-full overflow-hidden rounded-lg bg-black/40 transition-transform group-hover:scale-[1.02]">
           {Thumb ? (
             <div className="relative h-full w-full">
-              <Thumb />
+              {/* Mount thumb only when near viewport — saves CPU when scrolled away. */}
+              {inView ? (
+                <Thumb />
+              ) : (
+                <div className="grid-bg h-full w-full opacity-40" />
+              )}
               {/* subtle vignette so the title stays readable on contrasty thumbs */}
               <div
                 aria-hidden

@@ -8,8 +8,10 @@ const VH = 180;
 /* -------- Particle Galaxy -------- */
 
 export function ParticleGalaxyThumb() {
-  // Deterministic particle layout so SSR + client render match.
-  const particles = Array.from({ length: 70 }).map((_, i) => {
+  // Particles split into 3 radius bands. Each band rotates as ONE motion.g
+  // (3 animations total instead of 50+). Different periods give the parallax feel.
+  const PARTICLES = 50;
+  const all = Array.from({ length: PARTICLES }).map((_, i) => {
     const a = (i * 137.508 * Math.PI) / 180;
     const r = 18 + ((i * 7) % 78);
     return {
@@ -17,11 +19,27 @@ export function ParticleGalaxyThumb() {
       a,
       r,
       hue: (i * 13) % 360,
-      // outer particles take longer to orbit (Kepler-ish)
-      period: 6 + r / 14,
       size: 0.9 + (i % 3) * 0.4
     };
   });
+
+  // Bucket by radius
+  const inner = all.filter((p) => p.r < 38);
+  const mid = all.filter((p) => p.r >= 38 && p.r < 70);
+  const outer = all.filter((p) => p.r >= 70);
+
+  const renderBand = (ps: typeof all) =>
+    ps.map((p) => (
+      <circle
+        key={p.i}
+        cx={p.r * Math.cos(p.a)}
+        cy={p.r * Math.sin(p.a) * 0.62}
+        r={p.size}
+        fill={`hsl(${p.hue}, 90%, 70%)`}
+        opacity={0.9}
+        style={{ filter: "drop-shadow(0 0 2px currentColor)" }}
+      />
+    ));
 
   return (
     <svg viewBox={`0 0 ${VW} ${VH}`} className="h-full w-full">
@@ -41,8 +59,8 @@ export function ParticleGalaxyThumb() {
 
       <rect x={0} y={0} width={VW} height={VH} fill="url(#pg-bg)" />
 
-      {/* dust stars */}
-      {Array.from({ length: 40 }).map((_, i) => {
+      {/* dust stars — static */}
+      {Array.from({ length: 30 }).map((_, i) => {
         const x = (i * 37) % VW;
         const y = (i * 53) % VH;
         return (
@@ -67,24 +85,28 @@ export function ParticleGalaxyThumb() {
         />
         <circle r={2.4} fill="#fff" />
 
-        {/* orbiting particles — each on its own slow rotation */}
-        {particles.map((p) => (
-          <motion.g
-            key={p.i}
-            animate={{ rotate: 360 }}
-            transition={{ duration: p.period, repeat: Infinity, ease: "linear" }}
-            style={{ transformOrigin: "0px 0px" }}
-          >
-            <circle
-              cx={p.r * Math.cos(p.a)}
-              cy={p.r * Math.sin(p.a) * 0.62}
-              r={p.size}
-              fill={`hsl(${p.hue}, 90%, 70%)`}
-              opacity={0.9}
-              style={{ filter: "drop-shadow(0 0 2px currentColor)" }}
-            />
-          </motion.g>
-        ))}
+        {/* 3 banded rotations — fast inner, medium mid, slow outer */}
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "0px 0px" }}
+        >
+          {renderBand(inner)}
+        </motion.g>
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "0px 0px" }}
+        >
+          {renderBand(mid)}
+        </motion.g>
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "0px 0px" }}
+        >
+          {renderBand(outer)}
+        </motion.g>
       </g>
     </svg>
   );
@@ -414,34 +436,34 @@ export function KaleidoscopeThumb() {
           <stop offset="50%" stopColor="#ff2bd6" stopOpacity="0.6" />
           <stop offset="100%" stopColor="#9d00ff" stopOpacity="0" />
         </radialGradient>
-        <filter id="k-blur" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="0.4" />
-        </filter>
       </defs>
 
       <rect x={0} y={0} width={VW} height={VH} fill="url(#k-bg)" />
 
-      {/* slow rotation of the whole mandala */}
+      {/* slow rotation of the whole mandala (single transform on the parent group
+          — keeps the GPU work to one composited layer) */}
       <motion.g
         animate={{ rotate: 360 }}
         transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
         style={{ transformOrigin: `${cx}px ${cy}px` }}
       >
         <g transform={`translate(${cx} ${cy})`}>
-          {/* SEGMENTS slices, each containing the same wedge content (mirrored half + half) */}
+          {/* SEGMENTS slices, each containing the same wedge content (mirrored half + half).
+              Glow is via path-level drop-shadow only (composited cheaply); SVG feGaussianBlur
+              filter removed because it slaughters Chrome FPS when applied to many paths. */}
           {Array.from({ length: SEGMENTS }).map((_, segIdx) => {
             const baseAngle = (segIdx * 360) / SEGMENTS;
             return (
               <g key={segIdx} transform={`rotate(${baseAngle})`}>
                 {ribbons.map((rb, i) => (
-                  <g key={i} filter="url(#k-blur)">
+                  <g key={i}>
                     <path
                       d={ribbonPath(rb.amp, rb.freq, rb.phase, false)}
                       stroke={rb.color}
                       strokeWidth={1.4}
                       fill="none"
                       strokeOpacity={0.85}
-                      style={{ filter: `drop-shadow(0 0 3px ${rb.color})` }}
+                      style={{ filter: `drop-shadow(0 0 2px ${rb.color})` }}
                     />
                     <path
                       d={ribbonPath(rb.amp, rb.freq, rb.phase, true)}
@@ -449,7 +471,7 @@ export function KaleidoscopeThumb() {
                       strokeWidth={1.4}
                       fill="none"
                       strokeOpacity={0.85}
-                      style={{ filter: `drop-shadow(0 0 3px ${rb.color})` }}
+                      style={{ filter: `drop-shadow(0 0 2px ${rb.color})` }}
                     />
                   </g>
                 ))}
@@ -518,16 +540,14 @@ export function InkwellThumb() {
           </radialGradient>
         ))}
 
-        <filter id="ink-bloom" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="1.4" />
-        </filter>
       </defs>
 
       <rect x={0} y={0} width={VW} height={VH} fill="url(#ink-bg)" />
 
-      {/* Plumes — each has a soft glow blob plus a thin curling tendril */}
+      {/* Plumes — soft glow comes from the radial gradient + drop-shadow rather
+          than a SVG blur filter (filter forces per-frame re-raster — too expensive). */}
       {plumes.map((p, i) => (
-        <g key={i} filter="url(#ink-bloom)">
+        <g key={i} style={{ filter: `drop-shadow(0 0 6px ${p.color}aa)` }}>
           {/* Pulsing blob */}
           <motion.ellipse
             cx={p.cx}
