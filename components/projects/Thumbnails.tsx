@@ -489,11 +489,111 @@ export function KaleidoscopeThumb() {
   );
 }
 
+/* -------- Inkwell -------- */
+
+export function InkwellThumb() {
+  // Three swirling dye plumes on a black canvas — captures the visual identity.
+  // The "swirl" is animated via path morph + slow group rotation.
+  const plumes = [
+    { color: "#ff7a3d", cx: 90,  cy: 100, scale: 1.0,  delay: 0 },
+    { color: "#65e88a", cx: 165, cy: 95,  scale: 0.95, delay: 0.6 },
+    { color: "#5b9aff", cx: 235, cy: 100, scale: 1.05, delay: 1.2 }
+  ];
+
+  return (
+    <svg viewBox={`0 0 ${VW} ${VH}`} className="h-full w-full">
+      <defs>
+        <radialGradient id="ink-bg" cx="50%" cy="55%" r="65%">
+          <stop offset="0%" stopColor="#0a0410" />
+          <stop offset="100%" stopColor="#000" />
+        </radialGradient>
+
+        {/* one bloom-like radial per plume color, used as fill */}
+        {plumes.map((p, i) => (
+          <radialGradient key={i} id={`ink-plume-${i}`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fff" stopOpacity="0.95" />
+            <stop offset="35%" stopColor={p.color} stopOpacity="0.85" />
+            <stop offset="75%" stopColor={p.color} stopOpacity="0.25" />
+            <stop offset="100%" stopColor={p.color} stopOpacity="0" />
+          </radialGradient>
+        ))}
+
+        <filter id="ink-bloom" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="1.4" />
+        </filter>
+      </defs>
+
+      <rect x={0} y={0} width={VW} height={VH} fill="url(#ink-bg)" />
+
+      {/* Plumes — each has a soft glow blob plus a thin curling tendril */}
+      {plumes.map((p, i) => (
+        <g key={i} filter="url(#ink-bloom)">
+          {/* Pulsing blob */}
+          <motion.ellipse
+            cx={p.cx}
+            cy={p.cy}
+            rx={32 * p.scale}
+            ry={26 * p.scale}
+            fill={`url(#ink-plume-${i})`}
+            animate={{
+              rx: [32 * p.scale, 36 * p.scale, 32 * p.scale],
+              ry: [26 * p.scale, 22 * p.scale, 26 * p.scale]
+            }}
+            transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
+          />
+
+          {/* Curling tendril above the blob */}
+          <motion.path
+            stroke={p.color}
+            strokeOpacity={0.55}
+            strokeWidth={1.3}
+            fill="none"
+            strokeLinecap="round"
+            d={`M${p.cx},${p.cy - 8} Q${p.cx + 14},${p.cy - 30} ${p.cx - 6},${p.cy - 50} Q${p.cx - 18},${p.cy - 65} ${p.cx + 8},${p.cy - 78}`}
+            animate={{
+              d: [
+                `M${p.cx},${p.cy - 8} Q${p.cx + 14},${p.cy - 30} ${p.cx - 6},${p.cy - 50} Q${p.cx - 18},${p.cy - 65} ${p.cx + 8},${p.cy - 78}`,
+                `M${p.cx},${p.cy - 8} Q${p.cx - 12},${p.cy - 30} ${p.cx + 8},${p.cy - 50} Q${p.cx + 18},${p.cy - 65} ${p.cx - 6},${p.cy - 78}`,
+                `M${p.cx},${p.cy - 8} Q${p.cx + 14},${p.cy - 30} ${p.cx - 6},${p.cy - 50} Q${p.cx - 18},${p.cy - 65} ${p.cx + 8},${p.cy - 78}`
+              ]
+            }}
+            transition={{ duration: 6 + i * 0.8, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
+          />
+        </g>
+      ))}
+
+      {/* A few drifting dots like dye microparticles */}
+      {Array.from({ length: 12 }).map((_, i) => {
+        const x = 20 + (i * 27) % (VW - 40);
+        const y = 20 + (i * 13) % (VH - 40);
+        const colors = ["#ff7a3d", "#65e88a", "#5b9aff", "#ffe680"];
+        return (
+          <motion.circle
+            key={i}
+            cx={x}
+            cy={y}
+            r={1}
+            fill={colors[i % colors.length]}
+            opacity={0.6}
+            animate={{
+              cx: [x, x + (i % 2 === 0 ? 12 : -12), x],
+              cy: [y, y - 8, y],
+              opacity: [0.2, 0.8, 0.2]
+            }}
+            transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: (i * 0.3) % 3 }}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
 /* -------- Map -------- */
 
 export const THUMBS: Record<string, React.ComponentType> = {
   "particle-galaxy": ParticleGalaxyThumb,
   "physics-sandbox": PhysicsSandboxThumb,
   "ocean-tank": OceanTankThumb,
-  "kaleidoscope": KaleidoscopeThumb
+  "kaleidoscope": KaleidoscopeThumb,
+  "inkwell": InkwellThumb
 };

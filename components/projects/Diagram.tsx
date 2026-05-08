@@ -477,6 +477,257 @@ function pathD(xs: number[], baseline: number, h: number, phase: number, layer: 
   return path;
 }
 
+/* ---------- Inkwell: Stable Fluids per-frame cycle ---------- */
+
+export function InkwellCycleDiagram() {
+  const cx = 180;
+  const cy = 110;
+  const radius = 76;
+
+  const stages = [
+    { label: "ADD FORCE", sub: "splat dye + velocity", color: "#ffae3d", angle: -90 },
+    { label: "ADVECT", sub: "carry along velocity", color: "#65e88a", angle: -22 },
+    { label: "PROJECT", sub: "make ∇·v = 0", color: "#5b9aff", angle: 46 },
+    { label: "DISPLAY", sub: "blit dye → screen", color: "#ff7a3d", angle: 114 },
+    { label: "REPEAT", sub: "60× per second", color: "#ff2bd6", angle: 178 }
+  ];
+
+  return (
+    <DiagramFrame
+      title="per-frame pipeline · 60 fragment passes"
+      caption="Jos Stam's Stable Fluids — every frame runs the entire cycle"
+      height={280}
+    >
+      <svg viewBox="0 0 360 220" className="absolute inset-0 h-full w-full">
+        <defs>
+          <radialGradient id="ink-cycle-bg" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stopColor="#100820" />
+            <stop offset="100%" stopColor="#02010a" />
+          </radialGradient>
+          <radialGradient id="ink-cycle-core" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fff" />
+            <stop offset="50%" stopColor="#ffae3d" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#ff7a3d" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <rect x={0} y={0} width={360} height={220} fill="url(#ink-cycle-bg)" />
+
+        {/* outer dotted ring */}
+        <motion.circle
+          cx={cx}
+          cy={cy}
+          r={radius}
+          fill="none"
+          stroke="#ffae3d"
+          strokeOpacity={0.18}
+          strokeWidth={0.6}
+          strokeDasharray="2 4"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 0.4 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        {/* moving pulse that traces the ring */}
+        <motion.circle
+          cx={cx}
+          cy={cy - radius}
+          r={4}
+          fill="#fff"
+          style={{
+            transformOrigin: `${cx}px ${cy}px`,
+            filter: "drop-shadow(0 0 6px #ffae3d) drop-shadow(0 0 14px #ff7a3d)"
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Stage labels around the ring */}
+        {stages.map((s, i) => {
+          const a = (s.angle * Math.PI) / 180;
+          const x = cx + radius * Math.cos(a);
+          const y = cy + radius * Math.sin(a);
+          // label offset further out
+          const lx = cx + (radius + 24) * Math.cos(a);
+          const ly = cy + (radius + 24) * Math.sin(a);
+          return (
+            <motion.g
+              key={i}
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 + i * 0.12, type: "spring", stiffness: 240, damping: 22 }}
+            >
+              <circle cx={x} cy={y} r={5} fill={s.color} style={{ filter: `drop-shadow(0 0 4px ${s.color})` }} />
+              <circle cx={x} cy={y} r={2} fill="#fff" />
+              <text
+                x={lx}
+                y={ly - 2}
+                textAnchor="middle"
+                fill={s.color}
+                fontSize="9"
+                fontWeight="600"
+                fontFamily="ui-monospace, monospace"
+                style={{ filter: `drop-shadow(0 0 3px ${s.color}88)` }}
+              >
+                {s.label}
+              </text>
+              <text
+                x={lx}
+                y={ly + 8}
+                textAnchor="middle"
+                fill="#ffffffaa"
+                fontSize="7"
+                fontFamily="ui-monospace, monospace"
+              >
+                {s.sub}
+              </text>
+            </motion.g>
+          );
+        })}
+
+        {/* center: pulsing dye blob */}
+        <motion.circle
+          cx={cx}
+          cy={cy}
+          r={20}
+          fill="url(#ink-cycle-core)"
+          animate={{ scale: [0.85, 1.1, 0.85], opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <text
+          x={cx}
+          y={cy + 3}
+          textAnchor="middle"
+          fill="#fff"
+          fontSize="9"
+          fontFamily="ui-monospace, monospace"
+          fontWeight="600"
+        >
+          dye RT
+        </text>
+      </svg>
+    </DiagramFrame>
+  );
+}
+
+/* ---------- Inkwell: pressure projection (Helmholtz–Hodge) ---------- */
+
+export function ProjectionDiagram() {
+  // Three panels: divergent velocity → divergence-free velocity, with the projection step in between.
+  const panelW = 100;
+  const panelH = 100;
+  const arrows = (mode: "raw" | "clean") => {
+    const out: { x: number; y: number; vx: number; vy: number }[] = [];
+    for (let yi = 0; yi < 5; yi++) {
+      for (let xi = 0; xi < 5; xi++) {
+        const x = (xi + 0.5) * (panelW / 5);
+        const y = (yi + 0.5) * (panelH / 5);
+        // raw: divergent (radiating outward from a point) — fluid that's gaining mass
+        // clean: incompressible (curl-only — pure rotation)
+        const dx = x - panelW / 2;
+        const dy = y - panelH / 2;
+        const r = Math.sqrt(dx * dx + dy * dy) + 1e-3;
+        let vx: number, vy: number;
+        if (mode === "raw") {
+          // outward + slight rotation
+          vx = (dx / r) * 6 + (-dy / r) * 2;
+          vy = (dy / r) * 6 + (dx / r) * 2;
+        } else {
+          // pure rotation
+          vx = -dy / r * 5;
+          vy = dx / r * 5;
+        }
+        out.push({ x, y, vx, vy });
+      }
+    }
+    return out;
+  };
+
+  return (
+    <DiagramFrame
+      title="pressure projection · ∇·v = 0"
+      caption="raw velocity field has divergence (sources/sinks) · projection makes it incompressible"
+      height={200}
+    >
+      <svg viewBox="0 0 360 140" className="absolute inset-0 h-full w-full">
+        <defs>
+          <marker id="ink-arr-warn" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto">
+            <path d="M0,0 L0,4 L3,2 z" fill="#ff7a3d" />
+          </marker>
+          <marker id="ink-arr-good" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto">
+            <path d="M0,0 L0,4 L3,2 z" fill="#65e88a" />
+          </marker>
+        </defs>
+
+        {/* LEFT panel — divergent */}
+        <g transform="translate(20, 20)">
+          <rect width={panelW} height={panelH} fill="#08020a" stroke="#ff7a3d" strokeOpacity={0.35} strokeWidth={0.6} rx={3} />
+          <text x={panelW / 2} y={-4} textAnchor="middle" fill="#ff7a3d" fontSize="8" fontFamily="ui-monospace, monospace">DIVERGENT</text>
+          {arrows("raw").map((a, i) => (
+            <motion.line
+              key={i}
+              x1={a.x}
+              y1={a.y}
+              x2={a.x + a.vx}
+              y2={a.y + a.vy}
+              stroke="#ff7a3d"
+              strokeWidth={0.7}
+              markerEnd="url(#ink-arr-warn)"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 0.85 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 + i * 0.015, duration: 0.4 }}
+            />
+          ))}
+        </g>
+
+        {/* arrow + label */}
+        <g transform="translate(140, 70)">
+          <motion.g
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.0 }}
+          >
+            <line x1={0} y1={0} x2={36} y2={0} stroke="#9d00ff" strokeWidth={1.2} />
+            <path d="M36,0 L30,-4 L30,4 Z" fill="#9d00ff" />
+            <text x={18} y={-6} textAnchor="middle" fill="#9d00ff" fontSize="7" fontFamily="ui-monospace, monospace">
+              project
+            </text>
+            <text x={18} y={12} textAnchor="middle" fill="#fff" fontSize="6" opacity={0.5} fontFamily="ui-monospace, monospace">
+              30 Jacobi
+            </text>
+          </motion.g>
+        </g>
+
+        {/* RIGHT panel — divergence-free */}
+        <g transform="translate(190, 20)">
+          <rect width={panelW} height={panelH} fill="#08020a" stroke="#65e88a" strokeOpacity={0.45} strokeWidth={0.6} rx={3} />
+          <text x={panelW / 2} y={-4} textAnchor="middle" fill="#65e88a" fontSize="8" fontFamily="ui-monospace, monospace">∇·v = 0</text>
+          {arrows("clean").map((a, i) => (
+            <motion.line
+              key={i}
+              x1={a.x}
+              y1={a.y}
+              x2={a.x + a.vx}
+              y2={a.y + a.vy}
+              stroke="#65e88a"
+              strokeWidth={0.7}
+              markerEnd="url(#ink-arr-good)"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 0.9 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.4 + i * 0.015, duration: 0.4 }}
+            />
+          ))}
+        </g>
+      </svg>
+    </DiagramFrame>
+  );
+}
+
 /* ---------- Kaleidoscope: polar fold + symmetry ---------- */
 
 export function KaleidoscopeDiagram() {

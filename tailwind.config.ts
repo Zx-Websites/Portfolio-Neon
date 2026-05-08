@@ -11,7 +11,8 @@ const config: Config = {
           pink: "#ff2bd6",
           cyan: "#00f0ff",
           purple: "#9d00ff",
-          lime: "#b6ff00"
+          lime: "#b6ff00",
+          amber: "#ffae3d"
         }
       },
       fontFamily: {

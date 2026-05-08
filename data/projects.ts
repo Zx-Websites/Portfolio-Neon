@@ -60,6 +60,17 @@ export const projects: Project[] = [
     itchUrl: "https://zxdelt.itch.io/kaleidoscope",
     year: 2026,
     featured: true
+  },
+  {
+    id: "inkwell",
+    title: "Inkwell",
+    tagline: "Time to draw and say wowwwww",
+    description:
+      "pee pee poo poo?",
+    tags: ["Unity", "C#", "Simulation"],
+    itchUrl: "https://zxdelt.itch.io/inkwell",
+    year: 2026,
+    featured: true
   }
   
   // {

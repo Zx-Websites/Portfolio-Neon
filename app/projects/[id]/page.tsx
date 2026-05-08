@@ -5,9 +5,10 @@ import ParticleGalaxyContent, { particleGalaxyGlyph } from "@/components/project
 import FallingSandContent, { fallingSandGlyph } from "@/components/projects/content/FallingSandContent";
 import OceanTankContent, { oceanTankGlyph } from "@/components/projects/content/OceanTankContent";
 import KaleidoscopeContent, { kaleidoscopeGlyph } from "@/components/projects/content/KaleidoscopeContent";
+import InkwellContent, { inkwellGlyph } from "@/components/projects/content/InkwellContent";
 import type { Metadata } from "next";
 
-type Accent = "cyan" | "pink" | "lime" | "purple";
+type Accent = "cyan" | "pink" | "lime" | "purple" | "amber";
 
 const REGISTRY: Record<
   string,
@@ -32,6 +33,11 @@ const REGISTRY: Record<
     accent: "pink",
     glyph: kaleidoscopeGlyph,
     Content: KaleidoscopeContent
+  },
+  "inkwell": {
+    accent: "amber",
+    glyph: inkwellGlyph,
+    Content: InkwellContent
   }
 };
 
