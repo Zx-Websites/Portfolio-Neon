@@ -99,11 +99,11 @@
     position: absolute;
     top: 8mm; left: 13mm; right: 13mm;
     display: flex; align-items: baseline; justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 7.2pt;
+    font-family: var(--font-body);
+    font-size: 7.4pt;
+    font-weight: 500;
     color: var(--muted);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
   .kicker .me { color: var(--ink); font-weight: 500; }
   .kicker .me em { font-style: normal; color: var(--accent-2); }
@@ -112,11 +112,11 @@
     position: absolute;
     bottom: 8mm; left: 13mm; right: 13mm;
     display: flex; align-items: center; justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 7pt;
+    font-family: var(--font-body);
+    font-size: 7.4pt;
+    font-weight: 500;
     color: var(--muted-2);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
   .pagefoot .glyph { color: var(--accent-2); letter-spacing: 0; font-size: 8pt; }
   .pagefoot a { color: var(--muted); text-decoration: none; }
@@ -201,9 +201,10 @@
   }
   .contact .item .lab {
     display: block;
-    font-size: 6.6pt;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    font-family: var(--font-body);
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     color: var(--muted-2);
     margin-bottom: 1.2mm;
   }
@@ -301,11 +302,11 @@
   /* ──────────────────────────────────────────────────────────────
      PAGE 2 — EXPERIENCE
      ────────────────────────────────────────────────────────────── */
-  .p2 { padding: 14mm 14mm 12mm 14mm; }
+  .p2 { padding: 12mm 14mm 15mm 14mm; }
 
   .xp {
     display: grid;
-    gap: 3.8mm;
+    gap: 2.4mm;
   }
   .xp-block {
     page-break-inside: avoid;
@@ -369,13 +370,12 @@
     font-size: 7.4pt;
     color: var(--muted);
     letter-spacing: 0.04em;
-    text-transform: lowercase;
     margin-bottom: 2.2mm;
   }
   .xp-desc {
     margin: 0;
-    font-size: 8.8pt;
-    line-height: 1.45;
+    font-size: 8.2pt;
+    line-height: 1.4;
     color: var(--ink-soft);
     text-wrap: pretty;
     max-width: 168mm;
@@ -396,7 +396,7 @@
   .group-h .tag {
     font-family: var(--font-mono);
     font-size: 8pt;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink);
     font-weight: 600;
@@ -465,10 +465,11 @@
   .proj-meta .lnk { color: var(--accent); border-bottom: 0.5px solid var(--accent); text-decoration: none; padding-bottom: 1px; }
 
   .proj-tag {
-    font-family: var(--font-mono);
-    font-size: 7.6pt;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 8pt;
     color: var(--muted);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.02em;
     margin-bottom: 2mm;
   }
   .proj-tag .ctx {
@@ -562,7 +563,7 @@
       <a href="https://www.linkedin.com/in/jayant-bodse-21ab621a6/">linkedin.com/in/jayant-bodse</a>
     </div>
     <div class="item">
-      <span class="lab">itch.io</span>
+      <span class="lab">Itch.io</span>
       <a href="https://zxdelt.itch.io">zxdelt.itch.io</a>
     </div>
     <div class="item">
@@ -580,8 +581,8 @@
 
   <blockquote class="profile">
     <p class="quote">
-      I build <em>small, self-contained experiences</em> — games, tools, simulations — that try to do
-      one thing well. Equal parts game developer and tool-smith: most days I'm extending the editor
+      I build <em>small, self-contained experiences</em>: games, tools, simulations — each one trying to do
+      one thing well. Equal parts game developer and tool-smith; most days I'm extending the editor
       or rendering pipeline before I write a single line of gameplay.
     </p>
   </blockquote>
@@ -595,23 +596,23 @@
   <div class="stack">
     <div class="col">
       <h3>Engines</h3>
-      <p><span class="key">Unity 6</span><span class="rest">— primary; URP, WebGL, IL2CPP, Burst + Jobs.</span> <span class="rest">Godot · Unreal · Construct 3 · GDevelop.</span></p>
+      <p><span class="key">Unity 6</span><span class="rest">— primary; URP, WebGL, IL2CPP, Burst + Jobs.</span> <span class="rest">Also Godot, Unreal, GDevelop and Construct 3.</span></p>
     </div>
     <div class="col">
       <h3>Languages</h3>
-      <p><span class="key">C#</span><span class="rest">— gameplay, editor, jobs, async pipelines.</span> <span class="rest">TypeScript · JavaScript · HTML/CSS · PHP · HLSL.</span></p>
+      <p><span class="key">C#</span><span class="rest">— gameplay, editor, jobs, async pipelines.</span> <span class="rest">TypeScript, JavaScript, HTML/CSS, PHP, HLSL.</span></p>
     </div>
     <div class="col">
       <h3>Specialties</h3>
-      <p><span class="rest">Editor scripting · custom shaders · GPU simulation · cloth simulation (Magica Cloth 2 · FEM) · UI Toolkit · audio reactivity · AR Foundation · Unity XR Toolkit (Meta Quest) · Photon PUN multiplayer.</span></p>
+      <p><span class="rest">Editor scripting, custom shaders, GPU simulation, cloth simulation (Magica Cloth 2 / FEM), UI Toolkit, audio reactivity, AR Foundation, Unity XR Toolkit (Meta Quest), Photon PUN multiplayer.</span></p>
     </div>
     <div class="col">
       <h3>Web &amp; Tooling</h3>
-      <p><span class="rest">React · Next.js · Firebase · REST APIs · Git. Photoshop, Blender, Audacity for asset work.</span></p>
+      <p><span class="rest">React, Next.js, Firebase, REST APIs, Git. Photoshop, Blender, Audacity for asset work.</span></p>
     </div>
     <div class="col">
       <h3>Strengths</h3>
-      <p><span class="rest">Scalable architecture · performance tuning · technical mentorship · cross-platform delivery · workflow automation · knowledge transfer.</span></p>
+      <p><span class="rest">Scalable architecture, performance tuning, technical mentorship, cross-platform delivery, workflow automation, knowledge transfer.</span></p>
     </div>
     <div class="col">
       <h3>Currently Learning</h3>
@@ -649,9 +650,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 01 / 12</span>
+    <span>page 1 of 12</span>
   </div>
 </article>
 
@@ -660,7 +661,7 @@
      PAGE 2 — EXPERIENCE
      ════════════════════════════════════════════════════════════════ -->
 <article class="page p2">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>experience · companies</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>experience · companies</span></div>
 
   <div class="sec-h">
     <span class="num">04.</span>
@@ -674,81 +675,81 @@
     <div class="xp-block">
       <div class="xp-row">
         <div class="xp-title">Game Developer</div>
-        <div class="xp-meta">Sep 2022 — Present<br/>3 yrs 9 mos</div>
+        <div class="xp-meta">Sep 2022 — Present<br/>3 yrs 9 mon</div>
       </div>
       <div class="xp-org">Self-employed<span class="type">Independent · Remote</span></div>
-      <div class="xp-place">indore → bangalore, india</div>
+      <div class="xp-place">Bangalore, India</div>
       <p class="xp-desc">
-        Independent game development — designing, building, and shipping experimental Unity titles and creative-coding tools end-to-end. Solo studio of one: art, code, audio, build, and publish on itch.io. Recent focus: GPU simulations, shader-driven visuals, and audio-reactive interactive experiences.
+        Solo studio shipping a portfolio of Unity experiments end-to-end. Solved across the current six releases: <strong>GPU water simulation</strong> with planar reflections (Ocean Tank), <strong>volumetric god-rays in WebGL</strong> without compute shaders (Sanctum), <strong>Burst-Jobs N-body particle</strong> systems with audio routing (Particle Galaxy), a <strong>Jos Stam stable-fluids solver</strong> on fragment-shader passes (Inkwell), single-shader audio-reactive procedural visuals (Kaleidoscope), and a Burst-compiled cellular-automata pixel-physics sandbox (Physics Sandbox). Each release a focused study in shader work, GPU pipelines, and tactile interaction.
       </p>
     </div>
 
     <div class="xp-block">
       <div class="xp-row">
-        <div class="xp-title">Cloth Simulation <em>Engineer</em></div>
-        <div class="xp-meta">Dec 2025 — Apr 2026<br/>4 mos · contract</div>
+        <div class="xp-title">Core <em>Engineer</em></div>
+        <div class="xp-meta">Dec 2025 — Apr 2026<br/>4 mon · contract</div>
       </div>
       <div class="xp-org">Kloth.me<span class="type">Contract · Remote</span></div>
-      <div class="xp-place">bangalore, india</div>
+      <div class="xp-place">Bangalore, India</div>
       <p class="xp-desc">
-        <strong>Kloth</strong> is a Bangalore-based fashion-tech startup building AI-powered virtual try-on — a 3D "fashion twin" from a 10-second body scan, evaluating how garments fit across sizes. The 4-month contract delivered the <strong>cloth-simulation engine</strong> behind their fit evaluator: Magica Cloth 2 solver extensions, a cloth-to-body aligner, a custom FEM plugin, and a headless server-side fit pipeline.
+        Built the <strong>cloth-simulation engine</strong> behind Kloth's A.I. fit-evaluation product. Shipped four major systems: an arbitrary-cloth-to-arbitrary-body aligner with sleeve-type detection (SMPL-X UV-map filtering, per-step centroid arm-fitting); deep modifications to <strong>Magica Cloth 2</strong> — added a true mesh collider running inside its Burst solver, ported the entire solver to GPU compute, and built a stress/strain analysis layer driving a custom HLSL tight-folds shader; a <strong>Unity FEM garment simulator</strong> from first principles (CPU + GPU paths); and a <strong>headless server-side fit pipeline</strong> (alignment → simulation → clipping check → camera capture → A.I. color-grade).
       </p>
     </div>
 
     <div class="xp-block">
       <div class="xp-row">
         <div class="xp-title">Team <em>Lead</em></div>
-        <div class="xp-meta">Dec 2024 — Jan 2026<br/>1 yr 2 mos</div>
+        <div class="xp-meta">Dec 2024 — Jan 2026<br/>1 yr 2 mon</div>
       </div>
       <div class="xp-org">Mayaavi Game Studio<span class="type">Full-time · Remote</span></div>
-      <div class="xp-place">indore, india</div>
+      <div class="xp-place">Indore, India</div>
       <p class="xp-desc">
-        <strong>Mayaavi</strong> is a games studio that brings imagination to reality through immersive, story-led play. The team blends art, technology, and storytelling to craft worlds — publishing across mobile and PC platforms, with a particular interest in reviving classic Indian game traditions for modern audiences.
+        Led a 6-person team (1 senior + 2 junior Unity, 2 frontend, 1 backend) on a third-person mobile RPG. Solved frame-rate on enemy-heavy scenes via <strong>GPU instancing</strong>, occlusion + frustum culling, and a single-update <strong>Burst + Jobs</strong> state-machine acting as a unified brain for every enemy (my first time working hands-on with Burst). Replaced Unity's Animator graph with <strong>Animancer</strong> for code-driven animations — smoother controller, richer combat. Built extensible enemy behaviors (dash, circle, chase, multi-attacker, fallback), a data-driven combat tool (Inspector → ScriptableObject) for weapon/animation combos, juggle system, dash VFX, enemy shaders, boss fight, and a bow-and-arrow system (homing, arrow-rain, standard).
       </p>
     </div>
 
     <div class="xp-block">
       <div class="xp-row">
         <div class="xp-title">Game Developer</div>
-        <div class="xp-meta">Oct 2023 — Dec 2024<br/>1 yr 3 mos</div>
+        <div class="xp-meta">Oct 2023 — Dec 2024<br/>1 yr 3 mon</div>
       </div>
       <div class="xp-org">WebMobril Gaming Studioz<span class="type">Full-time · On-site</span></div>
-      <div class="xp-place">indore, india</div>
+      <div class="xp-place">Indore, India</div>
       <p class="xp-desc">
-        <strong>WebMobril Gaming Studioz</strong> is a top-tier Indian game development house specializing in 2D and 3D titles, AR/VR experiences, real-money games, metaverse, and NFT integrations. The studio ships highly immersive games across mobile, console, and PC for international clients out of its Indore HQ.
+        Started my game-dev career here. Shipped client games (poker, card games, board games, simple 3D titles) and the first generation of editor tools I still use today (<strong>Custom Logger</strong>, <strong>REST API async client</strong>, <strong>Image-to-Sprite Converter</strong>). Built the studio's website at wmgamingstudioz.com, learned multiplayer (<strong>Photon PUN</strong>), integrated Unity WebGL with React for embedded play, and shipped Apple iOS / iPadOS builds end-to-end.
       </p>
     </div>
 
     <div class="xp-block">
       <div class="xp-row">
         <div class="xp-title">Game Development <em>Trainer</em></div>
-        <div class="xp-meta">Sep 2024 — Dec 2024<br/>4 mos</div>
+        <div class="xp-meta">Sep 2024 — Dec 2024<br/>4 mon</div>
       </div>
-      <div class="xp-org">The UpThrust<span class="type">Full-time · On-site</span></div>
-      <div class="xp-place">indore, india</div>
+      <div class="xp-org">The UpThrust<span class="type">Contract · On-site</span></div>
+      <div class="xp-place">Indore, India</div>
       <p class="xp-desc">
-        <strong>The UpThrust</strong> is Central India's longest-running game development and digital marketing training institute, with 11+ years of certification programs. They train students and working professionals across 2D, 3D, AR, and VR — using Unity and Unreal as the core engines for their hands-on curriculum.
+        Taught Unity game development to a class of <strong>6 students</strong> while shipping client work in parallel. Debugged projects on the <strong>Terra Game Engine</strong>, built swipe-style mobile games, implemented security features for gambling games, and led mobile-3D performance optimization that took a Clash-of-Clans-scale Unity project from <strong>23 fps to 60 fps</strong>.
       </p>
     </div>
 
     <div class="xp-block">
       <div class="xp-row">
         <div class="xp-title">Game Developer</div>
-        <div class="xp-meta">Apr 2024 — Sep 2024<br/>6 mos</div>
+        <div class="xp-meta">Apr 2024 — Sep 2024<br/>6 mon</div>
       </div>
-      <div class="xp-org">Futurristic<span class="type">Full-time · On-site</span></div>
-      <div class="xp-place">indore, india</div>
+      <div class="xp-org">Futurristic<span class="type">Contract · On-site</span></div>
+      <div class="xp-place">Indore, India</div>
       <p class="xp-desc">
-        <strong>Futurristic Business Solutions</strong> (founded 2019, offices in Indore and Fort Lauderdale) is an immersive-tech studio working at the intersection of AR/VR/XR, game development, blockchain, and metaverse. Their flagship product <em>Edscope</em> is a 4D knowledge metaverse for schools and universities — real-time collaborative learning environments built in Unity.
+        AR/VR delivery. Shipped <strong>multi-image AR detection</strong>, on-device <strong>object-detection A.I. on Meta Quest</strong>, and Quest Unity experiences (e.g. a rainy 3D grass flatland — held 60 fps against Meta's 90 fps target via <strong>GPU instancing + occlusion + frustum culling</strong>). Built a route-based EV-charging-rental app, explored <strong>Apple Vision Pro</strong> (day/night, A.I. child, spatial scan), and built Meta Quest 3/2 UI with hand-tracking + portal interactions.
       </p>
     </div>
 
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 02 / 12</span>
+    <span>page 2 of 12</span>
   </div>
 </article>
 
@@ -757,7 +758,7 @@
      PAGE 3 — INDEPENDENT PROJECTS · 1
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · independent</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · independent</span></div>
 
   <div class="sec-h">
     <span class="num">05.</span>
@@ -780,7 +781,7 @@
         <div class="proj-title">Ocean <em>Tank</em></div>
         <div class="proj-meta"><a class="lnk" href="https://zxdelt.itch.io/oceantank">zxdelt.itch.io/oceantank</a></div>
       </div>
-      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6 · URP · WebGL · HLSL · UI Toolkit</div>
+      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6, URP, WebGL, HLSL, UI Toolkit</div>
       <p class="proj-sub">A miniature 3D water tank with kelp, rocks, rain, sky, planar reflections — and live UI controls.</p>
       <ul class="proj-pts">
         <li>GPU water simulation via <code>CustomRenderTexture</code> ping-pong of height/velocity buffers — click-bumps inject ripples into a damped wave equation, sampled by the surface shader for real-time displacement and foam.</li>
@@ -798,8 +799,8 @@
         <div class="proj-title">Sanctum</div>
         <div class="proj-meta"><a class="lnk" href="https://zxdelt.itch.io/sanctum">zxdelt.itch.io/sanctum</a></div>
       </div>
-      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6 · URP · HLSL · Volumetrics · WebGL</div>
-      <p class="proj-sub">A small cathedral lit by coloured light — stained glass, god-rays, mirror floor.</p>
+      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6, URP, HLSL, Volumetrics, WebGL</div>
+      <p class="proj-sub">A small cathedral lit by colored light — stained glass, god-rays, mirror floor.</p>
       <ul class="proj-pts">
         <li>Custom <strong>StainedGlass</strong> + <strong>GodRay</strong> shader pair: per-panel tint drives a frustum-mesh god-ray with 3D noise dust, additive blending, and distance fade — no compute shaders, WebGL-safe.</li>
         <li>Polished-floor shader with planar reflection RT and Fresnel-weighted sky reflection — cathedral interior reflects panels, beams, and chandelier candles.</li>
@@ -813,9 +814,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 03 / 12</span>
+    <span>page 3 of 12</span>
   </div>
 </article>
 
@@ -824,7 +825,7 @@
      PAGE 4 — INDEPENDENT PROJECTS · 2
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · independent (cont.)</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · independent (cont.)</span></div>
 
   <div class="proj" style="margin-top: 6mm;">
 
@@ -834,7 +835,7 @@
         <div class="proj-title">Particle <em>Galaxy</em></div>
         <div class="proj-meta"><a class="lnk" href="https://zxdelt.itch.io/particle-galaxy">zxdelt.itch.io/particle-galaxy</a></div>
       </div>
-      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6 · Burst + Jobs + Mathematics · WebGL</div>
+      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6, Burst + Jobs + Mathematics, WebGL</div>
       <p class="proj-sub">N-body lite — thousands of particles orbit a gravity well, painting glowing trails on a Texture2D.</p>
       <ul class="proj-pts">
         <li>Burst-compiled <code>IJob</code> sim: 5,000+ particles integrate Newtonian gravity + damping every frame on persistent <code>NativeArray</code>s — zero allocations after Start.</li>
@@ -842,7 +843,7 @@
         <li><strong>Audio-reactive overhaul</strong>: tab-capture audio bridge with bass/mid/treble routing matrix — each band drives a different physics term (gravity / spin / trail-fade / pulse) at user-configurable strength.</li>
         <li>Beat-pulse explode + snap-back with a brief centerForce boost; per-channel fade biasing produces Fire and Electric trail moods.</li>
         <li>Mouse drag = gravity well (LMB attract, RMB repel); R re-randomizes; E radial explode; sliders on UI Toolkit panel for live tuning.</li>
-        <li>Music-mode preset auto-engages on tab-capture (bass→Spin, mid→Gravity, treble→TrailFade); idle preset stays subtle. Smooth transitions either way.</li>
+        <li>Music-mode preset auto-engages on tab-capture (bass drives Spin, mid drives Gravity, treble drives TrailFade); idle preset stays subtle. Smooth transitions either way.</li>
       </ul>
     </article>
 
@@ -852,24 +853,24 @@
         <div class="proj-title">Inkwell</div>
         <div class="proj-meta"><a class="lnk" href="https://zxdelt.itch.io/inkwell">zxdelt.itch.io/inkwell</a></div>
       </div>
-      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6 · URP · HLSL · WebGL · Stable Fluids</div>
+      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6, URP, HLSL, WebGL, Stable Fluids</div>
       <p class="proj-sub">Jos Stam's 2003 stable-fluids solver running real-time in WebGL. Mouse paints, ink swirls.</p>
       <ul class="proj-pts">
         <li>Full GPU fluid pipeline — <code>Graphics.Blit</code> ping-pong on RenderTextures with <code>RGHalf</code> velocity, <code>RHalf</code> pressure, <code>ARGBHalf</code> dye — formats picked for universal WebGL2/WebGPU support.</li>
-        <li>~60 fragment passes per frame on a 256² grid: add force, optional buoyancy, optional reactive ingredients, Jacobi diffuse (~20), divergence + Poisson pressure (~30), gradient subtract, semi-Lagrangian advection.</li>
+        <li>~60 fragment passes per frame on a 256×256 grid: add force, optional buoyancy, optional reactive ingredients, Jacobi diffuse (~20), divergence + Poisson pressure (~30), gradient subtract, semi-Lagrangian advection.</li>
         <li>Multi-color dye injection with brush picker, reflective velocity walls, zero-Neumann dye boundary; fluid demonstrably incompressible at default 30 pressure iterations.</li>
         <li>Five hand-tuned <strong>presets</strong> (Marble, Smoke, Galaxy, Reactive, Calm) — each a coherent feel with viscosity, dissipation, force, and bloom set in concert.</li>
         <li>Audio reactivity via mic energy → per-route modulation of force / dye rate / viscosity (architecture ported from Kaleidoscope).</li>
-        <li>Optional thermal mode (warm dye rises) and reactive ingredients (R+G→Y, R+B→M, G+B→C) toggleable from UI Toolkit panel.</li>
+        <li>Optional thermal mode (warm dye rises) and reactive ingredients (R+G yields Y, R+B yields M, G+B yields C) toggleable from UI Toolkit panel.</li>
       </ul>
     </article>
 
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 04 / 12</span>
+    <span>page 4 of 12</span>
   </div>
 </article>
 
@@ -878,7 +879,7 @@
      PAGE 5 — INDEPENDENT TAIL + PROFESSIONAL
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · independent + professional</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · independent + professional</span></div>
 
   <div class="proj" style="margin-top: 6mm;">
 
@@ -888,14 +889,14 @@
         <div class="proj-title">Kaleidoscope</div>
         <div class="proj-meta"><a class="lnk" href="https://zxdelt.itch.io/kaleidoscope">zxdelt.itch.io/kaleidoscope</a></div>
       </div>
-      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6 · URP · HLSL · Audio Reactivity</div>
-      <p class="proj-sub">Audio-reactive procedural visuals — live music drives the geometry and colour fields.</p>
+      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6, URP, HLSL, Audio Reactivity</div>
+      <p class="proj-sub">Audio-reactive procedural visuals — live music drives the geometry and color fields.</p>
       <ul class="proj-pts">
-        <li>Single-shader procedural composition layered from <strong>ribbons</strong>, <strong>pulse rings</strong>, <strong>radial spokes</strong>, and <strong>shimmer noise</strong> — every layer count, frequency, amplitude, glow, and colour spread is a runtime knob.</li>
+        <li>Single-shader procedural composition layered from <strong>ribbons</strong>, <strong>pulse rings</strong>, <strong>radial spokes</strong>, and <strong>shimmer noise</strong> — every layer count, frequency, amplitude, glow, and color spread is a runtime knob.</li>
         <li>UI-driven base values + <strong>AudioReactor</strong> overlay: each property has a "last UI value" that the reactor reads, layers audio modulation on top, then writes to the live material — clean restore when a route is disabled.</li>
         <li>Configurable routing matrix — bass / mid / treble each pick which shader property to drive, mutually exclusive selection prevents fighting modulators.</li>
         <li>Optional user texture upload (PNG/JPG byte loader) feeds the kaleidoscope center; toggleable between procedural and texture modes mid-show.</li>
-        <li>Hue control with primary/secondary HSV poles, hue-shift speed, colour spread, and background darkness — shader applies HSV palette mapping after composition.</li>
+        <li>Hue control with primary/secondary HSV poles, hue-shift speed, color spread, and background darkness — shader applies HSV palette mapping after composition.</li>
         <li>Final polish via per-shader saturation / brightness / contrast / vignette so output is grading-correct without an extra post pass.</li>
       </ul>
     </article>
@@ -906,24 +907,24 @@
         <div class="proj-title">Physics <em>Sandbox</em></div>
         <div class="proj-meta"><a class="lnk" href="https://zxdelt.itch.io/physics-sandbox">zxdelt.itch.io/physics-sandbox</a></div>
       </div>
-      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6 · Burst + Jobs · WebGL · Cellular Automata</div>
+      <div class="proj-tag"><span class="ctx">Independent · 2026</span>Unity 6, Burst + Jobs, WebGL, Cellular Automata</div>
       <p class="proj-sub">Noita / Sandspiel-style 2D pixel physics — sand, water, fire, smoke, electricity.</p>
       <ul class="proj-pts">
-        <li>Burst-compiled cellular automata solver on a 256² grid — single <code>IJob</code> per frame (CA can't trivially parallelize without race conditions), persistent NativeArrays, ~96KB working set.</li>
+        <li>Burst-compiled cellular automata solver on a 256×256 grid — single <code>IJob</code> per frame (CA can't trivially parallelize without race conditions), persistent NativeArrays, ~96KB working set.</li>
         <li>Multi-pass solver: bottom-up (sand, water with multi-cell horizontal flow), top-down (fire, smoke, steam rising), any-order (spark / iron / water electricity propagation guarded by a <code>processed</code> byte buffer).</li>
         <li><strong>Element chemistry</strong>: fire+water→steam, fire+wood→ignite, fire→smoke→air decay chain, steam condensation, sand-through-water displacement, water + spark electrical conduction.</li>
-        <li>Per-cell colour jitter at paint time + dynamic colours interpolated from <code>life</code> ticks for fire / smoke / spark / energized iron — gives natural visual variation with no extra art pass.</li>
+        <li>Per-cell color jitter at paint time + dynamic colors interpolated from <code>life</code> ticks for fire / smoke / spark / energized iron — gives natural visual variation with no extra art pass.</li>
         <li>UI Toolkit element grid (4×2), tools row, brush slider; keyboard shortcuts <code>1–7,0</code>, <code>[/]</code> brush size, <code>C</code> clear, <code>E</code> explosion.</li>
-        <li>Shipped to WebGL ~11 MB after Brotli — solved real shader-stripping &amp; <code>Collider.Raycast</code> UV bugs along the way.</li>
+        <li>Shipped to WebGL ~11 MB after Brotli — solved real shader-stripping and <code>Collider.Raycast()</code> UV bugs along the way.</li>
       </ul>
     </article>
 
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 05 / 12</span>
+    <span>page 5 of 12</span>
   </div>
 </article>
 
@@ -932,7 +933,7 @@
      PAGE 6 — PROFESSIONAL PROJECTS
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · professional</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · professional</span></div>
 
   <div class="group-h">
     <span class="tag">Professional</span>
@@ -948,10 +949,10 @@
         <div class="proj-title">Ludo <em>Multiplayer</em></div>
         <div class="proj-meta">Webmobril Gaming Studioz<br/>Unity · Photon PUN · Mobile</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2022–23</span>Photon PUN · Networking · Mobile UI</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2022–23</span>Photon PUN, Networking, Mobile UI</div>
       <p class="proj-sub">A real-time 4-player networked Ludo with full lobby, reconnect, and anti-cheat.</p>
       <ul class="proj-pts">
-        <li>Implemented full Photon PUN networking layer: room/lobby creation, matchmaking, turn synchronisation, RPC piece-move events with deterministic dice resolution.</li>
+        <li>Implemented full Photon PUN networking layer: room/lobby creation, matchmaking, turn synchronization, RPC piece-move events with deterministic dice resolution.</li>
         <li><strong>Reconnect logic</strong> for dropped connections — late-joiner re-syncs board state, turn-owner, and dice history without recreating the room.</li>
         <li>Server-side validation of every move against turn state and dice value — anti-cheat layer rejected illegal client moves and surfaced them as soft errors.</li>
         <li>Built emoji chat, real-time reactions, and round-end celebration overlays to drive retention; tuned animation timing with dynamic UI transitions.</li>
@@ -965,7 +966,7 @@
         <div class="proj-title">Meta Quest <em>VR Sandbox</em></div>
         <div class="proj-meta">Futurristic Business Solutions<br/>Unity XR Toolkit · Meta Quest</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2024</span>XR Toolkit · 6DoF · Hand Tracking · Haptics</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2024</span>XR Toolkit, 6DoF, Hand Tracking, Haptics</div>
       <p class="proj-sub">A VR object-interaction playground for Meta Quest — grab, throw, examine, pulse haptics.</p>
       <ul class="proj-pts">
         <li>Built on Unity XR Toolkit: hand-tracking input, controller fallback, physics-based grab / throw / examine with object-lifecycle management.</li>
@@ -979,9 +980,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 06 / 12</span>
+    <span>page 6 of 12</span>
   </div>
 </article>
 
@@ -990,7 +991,7 @@
      PAGE 7 — PROFESSIONAL PROJECTS · 2
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · professional (cont.)</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · professional (cont.)</span></div>
 
   <div class="proj" style="margin-top: 6mm;">
 
@@ -1000,7 +1001,7 @@
         <div class="proj-title">AR <em>Location</em> Quest System</div>
         <div class="proj-meta">Futurristic Business Solutions<br/>Unity · AR Foundation · Mapbox</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2024</span>AR Foundation · Mapbox SDK · GPS · Geofencing</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2024</span>AR Foundation, Mapbox SDK, GPS, Geofencing</div>
       <p class="proj-sub">GPS-anchored AR experiences — virtual content placed at real-world coordinates.</p>
       <ul class="proj-pts">
         <li>AR Foundation + Mapbox SDK integration: rendered route markers, location pins, and quest objectives on a live AR camera feed.</li>
@@ -1017,11 +1018,11 @@
         <div class="proj-title">Custom Logger Unity <em>Tool</em></div>
         <div class="proj-meta">Internal — Editor extension<br/>Unity · Editor Scripting · IMGUI</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2024</span>Editor Scripting · QA Tooling</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2024</span>Editor Scripting, QA Tooling</div>
       <p class="proj-sub">An in-editor debug log tool — filtered, color-coded, exportable.</p>
       <ul class="proj-pts">
         <li>Custom <strong>EditorWindow</strong> capturing runtime log entries with type, timestamp, stack trace, and tag — replaced ad-hoc <code>Debug.Log</code> sprawl.</li>
-        <li>Advanced filtering UI: include/exclude by log type (Info/Warn/Error), regex search, tag toggles, time-window slider — non-destructive (filter view, original log preserved).</li>
+        <li>Advanced filtering UI: include/exclude by log type (INFO/WARN/ERROR), regex search, tag toggles, time-window slider — non-destructive (filter view, original log preserved).</li>
         <li>Pause / resume capture, in-place tail-follow, jump-to-source on click; integrated with Unity's native console without overriding it.</li>
         <li>Export current view as JSON or CSV for QA hand-off; sessions persist between play-mode runs for cross-session debugging.</li>
         <li>Reduced QA-hand-off friction across the team — reproduction logs ship with every bug ticket.</li>
@@ -1031,9 +1032,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 07 / 12</span>
+    <span>page 7 of 12</span>
   </div>
 </article>
 
@@ -1042,7 +1043,7 @@
      PAGE 8 — PROFESSIONAL · AR WORK
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · professional (cont.)</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · professional (cont.)</span></div>
 
   <div class="proj" style="margin-top: 6mm;">
 
@@ -1052,13 +1053,13 @@
         <div class="proj-title">AR <em>Coloring</em></div>
         <div class="proj-meta">Client project · 2023<br/>Unity · AR Foundation · Mobile</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2023</span>AR Foundation · Marker Detection · iOS / Android</div>
-      <p class="proj-sub">An AR coloring book — children paint, the camera detects colour, 3D models come alive on top.</p>
+      <div class="proj-tag"><span class="ctx">Professional · 2023</span>AR Foundation, Marker Detection, iOS &amp; Android</div>
+      <p class="proj-sub">An AR coloring book — children paint, the camera detects color, 3D models come alive on top.</p>
       <ul class="proj-pts">
         <li>Built an AR coloring experience on Unity + AR Foundation that detects colored images on physical paper and renders animated 3D models aligned to user drawings.</li>
-        <li>Implemented the <strong>marker detection</strong> system — accurate, drift-free alignment of 3D content with hand-coloured artwork in real-time.</li>
-        <li>Sampled colour data from the marker to drive both the model's albedo / texture and triggered animation states + sound feedback.</li>
-        <li>Cross-platform Android &amp; iOS shipping with optimised AR tracking under varied lighting; tuned camera resolution &amp; permission flows for low-end devices.</li>
+        <li>Implemented the <strong>marker detection</strong> system — accurate, drift-free alignment of 3D content with hand-colored artwork in real-time.</li>
+        <li>Sampled color data from the marker to drive both the model's albedo / texture and triggered animation states + sound feedback.</li>
+        <li>Cross-platform Android &amp; iOS shipping with optimized AR tracking under varied lighting; tuned camera resolution &amp; permission flows for low-end devices.</li>
         <li>Collaborated with designers on child-friendly UI, scan-progress feedback, and interactive learning prompts that gated the experience for early readers.</li>
       </ul>
     </article>
@@ -1069,7 +1070,7 @@
         <div class="proj-title">Multi-Image AR <em>Detection</em></div>
         <div class="proj-meta">Client project · 2023–24<br/>Unity · AR Foundation · Mobile</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2023–24</span>AR Foundation · Image Targets · Storytelling</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2023–24</span>AR Foundation, Image Targets, Storytelling</div>
       <p class="proj-sub">Educational AR — many image targets, many concurrent reactions.</p>
       <ul class="proj-pts">
         <li>Built an AR Foundation app capable of detecting and responding to multiple image targets <strong>simultaneously</strong> — independent state per target, no thrashing on overlap.</li>
@@ -1083,9 +1084,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 08 / 12</span>
+    <span>page 8 of 12</span>
   </div>
 </article>
 
@@ -1094,7 +1095,7 @@
      PAGE 9 — PROFESSIONAL · TOOLS
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · professional · tools</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · professional · tools</span></div>
 
   <div class="proj" style="margin-top: 6mm;">
 
@@ -1104,7 +1105,7 @@
         <div class="proj-title">REST API Async <em>Client</em></div>
         <div class="proj-meta">Internal — Reusable library<br/>Unity · C# · async/await</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2024</span>HttpClient · Token Auth · JSON · Retries</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2024</span>HttpClient, Token Auth, JSON, Retries</div>
       <p class="proj-sub">A drop-in HTTP layer for Unity — non-blocking, typed, instrumented.</p>
       <ul class="proj-pts">
         <li>Implemented a Unity <strong>REST API client</strong> built on <code>HttpClient</code> + async/await — non-blocking web communication, no main-thread stalls.</li>
@@ -1121,23 +1122,23 @@
         <div class="proj-title">Image-to-Sprite <em>Converter</em></div>
         <div class="proj-meta">Internal — Editor extension<br/>Unity · Editor Scripting · Sprite Atlas</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2024</span>Editor Tool · Asset Pipeline · 2D</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2024</span>Editor Tool, Asset Pipeline, 2D</div>
       <p class="proj-sub">Bulk-convert textures into Unity-ready 2D sprites with one drop.</p>
       <ul class="proj-pts">
         <li>Designed an in-editor utility to bulk convert raw textures into Unity-ready 2D sprites — custom <strong>pivot</strong>, <strong>border</strong>, and compression settings exposed per-asset or batch.</li>
         <li>Drag-and-drop interface for multiple images at once; per-file overrides applied on the fly without leaving the inspector.</li>
         <li>Automated slicing and sprite generation for 2D projects — replaced ~30-click manual import flow with a single drop.</li>
         <li>File-renaming rules + auto-folder placement on import enforced consistent project structure across the team.</li>
-        <li>Sprite Atlas–compatible output for runtime optimisation; sprites bundle into atlases without further configuration.</li>
+        <li>Sprite Atlas–compatible output for runtime optimization; sprites bundle into atlases without further configuration.</li>
       </ul>
     </article>
 
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 09 / 12</span>
+    <span>page 9 of 12</span>
   </div>
 </article>
 
@@ -1146,7 +1147,7 @@
      PAGE 10 — PROFESSIONAL · TOOLS (CONT.) + COLOPHON
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · professional · tools (cont.)</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · professional · tools (cont.)</span></div>
 
   <div class="proj" style="margin-top: 6mm;">
 
@@ -1156,11 +1157,11 @@
         <div class="proj-title">Folder &amp; Hierarchy <em>Setup Tool</em></div>
         <div class="proj-meta">Internal — Editor extension<br/>Unity · Editor Scripting · JSON config</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Professional · 2024</span>Editor Tool · Project Templates · Onboarding</div>
+      <div class="proj-tag"><span class="ctx">Professional · 2024</span>Editor Tool, Project Templates, Onboarding</div>
       <p class="proj-sub">One-click project scaffolding — folders, scenes, and hierarchy from a template.</p>
       <ul class="proj-pts">
         <li>Custom Unity editor script that auto-creates project folder trees and default scene hierarchy structures from a single menu item.</li>
-        <li>Multiple <strong>profile templates</strong> — "2D Project", "VR Project", "Multiplayer" — each standardising a different studio workflow.</li>
+        <li>Multiple <strong>profile templates</strong> — "2D Project", "VR Project", "Multiplayer" — each standardizing a different studio workflow.</li>
         <li>One-click setup for art, scripts, prefabs, audio, UI, and documentation folders — with consistent naming conventions enforced on creation.</li>
         <li>Cut team onboarding time on new repos — eliminated manual setup error and saved a sprint of dev-environment friction per joiner.</li>
         <li>Tool config lives in <strong>JSON</strong> files — teams extend templates without touching code; new profiles ship as data, not commits.</li>
@@ -1170,9 +1171,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 10 / 12</span>
+    <span>page 10 of 12</span>
   </div>
 </article>
 
@@ -1181,7 +1182,7 @@
      PAGE 11 — KLOTH.ME · CONTRACT WORK
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · kloth.me · contract</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · kloth.me · contract</span></div>
 
   <div class="group-h">
     <span class="tag">Kloth.me</span>
@@ -1195,17 +1196,17 @@
       <span class="proj-idx">16</span>
       <div class="proj-row">
         <div class="proj-title">Headless Fit <em>Evaluation Pipeline</em></div>
-        <div class="proj-meta">Kloth.me · Flagship<br/>Unity · Server-side · AI Post</div>
+        <div class="proj-meta">Kloth.me · Flagship<br/>Unity · Server-side · A.I. Post</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>Cloth Solver · Headless Capture · Server Pipeline</div>
+      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>Cloth Solver, Headless Capture, Server Pipeline</div>
       <p class="proj-sub">A headless server takes a body + garment + size — outputs a photoreal render and a yes/no fit verdict.</p>
       <ul class="proj-pts">
         <li>Designed and shipped the end-to-end <strong>headless Unity pipeline</strong> running on the Kloth build server: garment FBX + body FBX in, photoreal PNG and a <code>fit_suitable</code> verdict out — no editor, no human in the loop.</li>
-        <li>Stage chain: <strong>garment-body alignment → arm/sleeve alignment → cloth simulation → clipping checks → headless camera capture → AI color-grading post</strong>, each stage a swap-in module behind a stable contract.</li>
+        <li>Stage chain: <strong>garment-body alignment → arm/sleeve alignment → cloth simulation → clipping checks → headless camera capture → A.I. color-grading post</strong>, each stage a swap-in module behind a stable contract.</li>
         <li>Per-call clipping detection — measures garment-to-body interpenetration after the simulation settles, flags problem regions before the render is shipped.</li>
         <li>Authored the cloth-solver core (atop modified Magica Cloth 2) and the alignment math; orchestrated simulation step counts, settle-frame detection, and capture timing.</li>
-        <li>AI post-process pass takes the raw simulation render and returns a colour-graded final image used directly in the consumer app.</li>
-        <li>Replaced studio shoots — same body × same garment × every size, parallelised across a worker pool with predictable per-job budget.</li>
+        <li>A.I. post-process pass takes the raw simulation render and returns a color-graded final image used directly in the consumer app.</li>
+        <li>Replaced studio shoots — same body × same garment × every size, parallelized across a worker pool with predictable per-job budget.</li>
       </ul>
     </article>
 
@@ -1215,11 +1216,11 @@
         <div class="proj-title">Magica Cloth 2 — <em>Solver Extensions &amp; GPU Port</em></div>
         <div class="proj-meta">Kloth.me · Engine work<br/>Unity · Burst · Compute Shaders · HLSL</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>Burst · Compute · Mesh Collider · Stress / Strain</div>
+      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>Burst, Compute, Mesh Collider, Stress / Strain</div>
       <p class="proj-sub">Solver-level extensions to Magica Cloth 2 — colliders, full GPU port, and a stress / strain visual layer.</p>
       <ul class="proj-pts">
         <li>Built a <strong>mini-sphere primitive collider grid</strong> using Magica Cloth 2's native sphere primitive at micro-scale, placed along body boundaries so cloth never punched through — cheap, dense, faster to ship than mesh colliders.</li>
-        <li>Upgraded that to a <strong>true mesh collider</strong> running inside Magica's Burst-compiled solver — required modifying Magica's solver files directly to honour mesh-vs-particle queries every substep without breaking Burst safety.</li>
+        <li>Upgraded that to a <strong>true mesh collider</strong> running inside Magica's Burst-compiled solver — required modifying Magica's solver files directly to honor mesh-vs-particle queries every substep without breaking Burst safety.</li>
         <li>Authored a full <strong>GPU port</strong> of the Magica Cloth 2 solver — moved constraint solving and integration off CPU/Burst onto compute shaders, preserved the existing constraint API so existing rigs ran unchanged.</li>
         <li>Built a <strong>stress &amp; strain analysis layer</strong> — per-vertex stretch/shear computed each tick from solver state and exposed as a vertex stream the renderer reads.</li>
         <li>Wrote a custom <strong>HLSL shader</strong> consuming the stress/strain stream to produce physically-motivated <strong>tight folds</strong> — wrinkles bunch where the cloth is actually under load.</li>
@@ -1230,9 +1231,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 11 / 12</span>
+    <span>page 11 of 12</span>
   </div>
 </article>
 
@@ -1241,7 +1242,7 @@
      PAGE 12 — KLOTH.ME (CONT.) + END
      ════════════════════════════════════════════════════════════════ -->
 <article class="page pp">
-  <div class="kicker"><span class="me">jayant <em>bodse</em></span><span>projects · kloth.me · contract (cont.)</span></div>
+  <div class="kicker"><span class="me">Jayant <em>Bodse</em></span><span>projects · kloth.me · contract (cont.)</span></div>
 
   <div class="proj" style="margin-top: 6mm;">
 
@@ -1251,7 +1252,7 @@
         <div class="proj-title">Any-Cloth Any-Body <em>Aligner</em></div>
         <div class="proj-meta">Kloth.me · Math + Geometry<br/>Unity · SMPL-X · Bone Proxy</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>Mesh Alignment · Sleeve Detection · Centroid Tracking</div>
+      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>Mesh Alignment, Sleeve Detection, Centroid Tracking</div>
       <p class="proj-sub">Geometric alignment of arbitrary garments onto arbitrary bodies — and the hardest part: sleeves.</p>
       <ul class="proj-pts">
         <li>Built a system that takes any garment mesh + any body mesh and produces a draping-ready initial pose — translate, scale, and bone-proxy align before simulation begins.</li>
@@ -1269,11 +1270,11 @@
         <div class="proj-title">Unity FEM <em>Garment Sim Plugin</em></div>
         <div class="proj-meta">Kloth.me · R&amp;D<br/>Unity · CPU + GPU paths · HLSL</div>
       </div>
-      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>FEM · Continuum Mechanics · Compute</div>
+      <div class="proj-tag"><span class="ctx">Kloth.me · 2025–26</span>FEM, Continuum Mechanics, Compute</div>
       <p class="proj-sub">A second cloth solver from first principles — Finite Element Method, CPU and GPU paths.</p>
       <ul class="proj-pts">
-        <li>Authored a Unity-native garment simulator on the <strong>Finite Element Method</strong> — discretises the garment into triangular elements, computes per-element strain/stress, integrates internal forces every step.</li>
-        <li><strong>FEM in two lines</strong>: each triangle's deformation gradient <code>F = ∂x/∂X</code> measures how the current shape differs from rest; Green-Lagrange strain <code>E = (FᵀF − I)/2</code> quantifies stretch + shear; stress <code>σ = λ·tr(E)·I + 2μE</code> (St. Venant-Kirchhoff) gives the in-plane force, with discrete-bending energy added for out-of-plane folds.</li>
+        <li>Authored a Unity-native garment simulator on the <strong>Finite Element Method</strong> — discretizes the garment into triangular elements, computes per-element strain/stress, integrates internal forces every step.</li>
+        <li><strong>FEM in two lines</strong>: each triangle's <strong>deformation gradient</strong> F measures how the current shape differs from rest; <strong>Green-Lagrange strain</strong> E = (transpose(F) * F - I) / 2 quantifies stretch + shear; <strong>stress</strong> S = lambda * trace(E) * I + 2 * mu * E (St. Venant-Kirchhoff linear elasticity) gives the in-plane force, with discrete-bending energy added for out-of-plane folds.</li>
         <li>Two fully separate code paths — <strong>CPU-only</strong> (reference, debuggable) and <strong>GPU-only</strong> (production target) — same constraints, same convergence, different perf envelopes.</li>
         <li>Solver assembles per-element forces into a global vector, integrates with semi-implicit Euler each substep, applies position-based constraints for non-stretchy fabrics.</li>
         <li>Stress / strain falls out for free from the FEM formulation — same data plugged directly into the stress-shader pipeline used for Magica.</li>
@@ -1284,9 +1285,9 @@
   </div>
 
   <div class="pagefoot">
-    <span>jayant bodse · résumé · — end —</span>
+    <span>Jayant Bodse · Resume</span>
     <span class="glyph">◆</span>
-    <span>page 12 / 12</span>
+    <span>page 12 of 12 · End</span>
   </div>
 </article>
 
