@@ -12,7 +12,8 @@ const config: Config = {
           cyan: "#00f0ff",
           purple: "#9d00ff",
           lime: "#b6ff00",
-          amber: "#ffae3d"
+          amber: "#ffae3d",
+          rose: "#ff5e8a"
         }
       },
       fontFamily: {

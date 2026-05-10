@@ -477,6 +477,277 @@ function pathD(xs: number[], baseline: number, h: number, phase: number, layer: 
   return path;
 }
 
+/* ---------- Sanctum: light path cross-section ---------- */
+
+export function SanctumLightDiagram() {
+  // Side cross-section showing: sun (off-screen left, ray entering) → stained
+  // glass panel → god-ray frustum cone → colored splash on the floor → planar
+  // reflection mirroring everything below.
+  const W = 380;
+  const H = 230;
+  const horizon = 110; // floor line
+  const ceiling = 12;
+  const wallLeft = 22;
+  const wallRight = W - 22;
+  const panelX = wallRight - 60;
+  const panelTop = 28;
+  const panelBottom = 78;
+
+  // ray hits the floor at this x (between wallLeft and a bit before wall right)
+  const splashCx = 130;
+  const splashLeft = splashCx - 36;
+  const splashRight = splashCx + 36;
+
+  return (
+    <DiagramFrame
+      title="light path · sun → glass → splash → mirror"
+      caption="cross-section view · the floor reflects everything above it via planar mirror"
+      height={290}
+    >
+      <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full">
+        <defs>
+          <linearGradient id="san-d-bg" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#0e0716" />
+            <stop offset="100%" stopColor="#04020a" />
+          </linearGradient>
+          <linearGradient id="san-d-floor" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#1c1418" />
+            <stop offset="100%" stopColor="#070409" />
+          </linearGradient>
+          <linearGradient id="san-d-beam" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#ff5e8a" stopOpacity="0.85" />
+            <stop offset="60%" stopColor="#ff5e8a" stopOpacity="0.32" />
+            <stop offset="100%" stopColor="#ff5e8a" stopOpacity="0" />
+          </linearGradient>
+          <radialGradient id="san-d-sun" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fff8b8" />
+            <stop offset="60%" stopColor="#ffae3d" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#ffae3d" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* sky outside */}
+        <rect x={0} y={0} width={W} height={horizon} fill="url(#san-d-bg)" />
+
+        {/* outside sun (top right corner above the window) */}
+        <g>
+          <circle cx={W - 32} cy={18} r={14} fill="url(#san-d-sun)" />
+          <circle cx={W - 32} cy={18} r={4} fill="#fffae8" />
+        </g>
+
+        {/* chamber walls — left, ceiling, right window cutout */}
+        <line x1={wallLeft} y1={ceiling} x2={wallRight} y2={ceiling} stroke="#3a2c40" strokeWidth={1.4} />
+        <line x1={wallLeft} y1={ceiling} x2={wallLeft} y2={horizon} stroke="#3a2c40" strokeWidth={1.4} />
+        {/* right wall has a window cut — top piece + bottom piece */}
+        <line x1={wallRight} y1={ceiling} x2={wallRight} y2={panelTop - 2} stroke="#3a2c40" strokeWidth={1.4} />
+        <line x1={wallRight} y1={panelBottom + 2} x2={wallRight} y2={horizon} stroke="#3a2c40" strokeWidth={1.4} />
+
+        {/* incoming sun ray — angled from sun toward panel */}
+        <motion.line
+          x1={W - 32}
+          y1={18}
+          x2={panelX + 4}
+          y2={panelTop + 16}
+          stroke="#ffe680"
+          strokeWidth={1}
+          strokeDasharray="3 3"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 0.85 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: 0.2 }}
+        />
+        <text
+          x={W - 80}
+          y={32}
+          fill="#ffe680"
+          fontSize="8"
+          fontFamily="ui-monospace, monospace"
+          opacity={0.9}
+        >
+          sun ray
+        </text>
+
+        {/* stained glass panel (3 stacked colored cells in cross-section) */}
+        <g>
+          <motion.rect
+            x={panelX}
+            y={panelTop}
+            width={6}
+            height={(panelBottom - panelTop) / 3}
+            fill="#ff5e8a"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            style={{ filter: "drop-shadow(0 0 4px #ff5e8a)" }}
+          />
+          <motion.rect
+            x={panelX}
+            y={panelTop + (panelBottom - panelTop) / 3}
+            width={6}
+            height={(panelBottom - panelTop) / 3}
+            fill="#5b9aff"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            style={{ filter: "drop-shadow(0 0 4px #5b9aff)" }}
+          />
+          <motion.rect
+            x={panelX}
+            y={panelTop + ((panelBottom - panelTop) * 2) / 3}
+            width={6}
+            height={(panelBottom - panelTop) / 3}
+            fill="#65e88a"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+            style={{ filter: "drop-shadow(0 0 4px #65e88a)" }}
+          />
+        </g>
+        <text
+          x={panelX + 12}
+          y={panelTop - 4}
+          fill="#fff"
+          fontSize="7"
+          opacity={0.6}
+          fontFamily="ui-monospace, monospace"
+        >
+          stained glass
+        </text>
+
+        {/* god-ray frustum (single cone for clarity, rose-tinted) */}
+        <motion.path
+          d={`M${panelX + 4},${panelTop + 16} L${panelX + 4},${panelBottom - 16} L${splashRight},${horizon} L${splashLeft},${horizon} Z`}
+          fill="url(#san-d-beam)"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.0, duration: 0.8 }}
+          style={{ mixBlendMode: "screen" as const }}
+        />
+        {/* dust motes drifting inside the beam */}
+        {Array.from({ length: 7 }).map((_, i) => {
+          const t = (i + 1) / 8;
+          const x = panelX + 4 + (splashCx - (panelX + 4)) * t + ((i * 11) % 7 - 3);
+          const y = (panelTop + 16) + ((horizon - panelTop - 16) * t);
+          return (
+            <motion.circle
+              key={i}
+              cx={x}
+              cy={y}
+              r={0.9}
+              fill="#fff"
+              opacity={0.7}
+              animate={{
+                opacity: [0.2, 0.85, 0.2],
+                cy: [y, y - 4, y]
+              }}
+              transition={{
+                duration: 3 + (i % 3),
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: (i * 0.4) % 2
+              }}
+            />
+          );
+        })}
+
+        <text
+          x={(panelX + splashCx) / 2 - 14}
+          y={(panelTop + horizon) / 2}
+          fill="#ff5e8a"
+          fontSize="7"
+          opacity={0.85}
+          fontFamily="ui-monospace, monospace"
+          transform={`rotate(60, ${(panelX + splashCx) / 2}, ${(panelTop + horizon) / 2})`}
+        >
+          god-ray frustum
+        </text>
+
+        {/* colored splash on floor */}
+        <motion.ellipse
+          cx={splashCx}
+          cy={horizon + 2}
+          rx={(splashRight - splashLeft) / 2}
+          ry={5}
+          fill="#ff5e8a"
+          initial={{ opacity: 0, scale: 0.4 }}
+          whileInView={{ opacity: 0.7, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.4, duration: 0.6 }}
+          style={{ filter: "drop-shadow(0 0 6px #ff5e8a88)" }}
+        />
+        <text
+          x={splashCx}
+          y={horizon - 8}
+          textAnchor="middle"
+          fill="#ff5e8a"
+          fontSize="7"
+          fontFamily="ui-monospace, monospace"
+        >
+          floor splash
+        </text>
+
+        {/* horizon line (mirror plane) */}
+        <line
+          x1={0}
+          y1={horizon}
+          x2={W}
+          y2={horizon}
+          stroke="#9d00ff"
+          strokeOpacity={0.55}
+          strokeWidth={0.6}
+          strokeDasharray="4 3"
+        />
+        <text
+          x={6}
+          y={horizon - 3}
+          fill="#9d00ff"
+          fontSize="7"
+          opacity={0.85}
+          fontFamily="ui-monospace, monospace"
+        >
+          mirror plane (y = floorY)
+        </text>
+
+        {/* floor */}
+        <rect x={0} y={horizon} width={W} height={H - horizon} fill="url(#san-d-floor)" />
+
+        {/* MIRRORED panel + frustum + splash, drawn flipped & dimmed below the horizon */}
+        <g
+          transform={`translate(0, ${horizon * 2}) scale(1, -1)`}
+          opacity={0.32}
+          style={{ mixBlendMode: "screen" as const }}
+        >
+          {/* mirrored stained glass */}
+          <rect x={panelX} y={panelTop} width={6} height={(panelBottom - panelTop) / 3} fill="#ff5e8a" />
+          <rect x={panelX} y={panelTop + (panelBottom - panelTop) / 3} width={6} height={(panelBottom - panelTop) / 3} fill="#5b9aff" />
+          <rect x={panelX} y={panelTop + ((panelBottom - panelTop) * 2) / 3} width={6} height={(panelBottom - panelTop) / 3} fill="#65e88a" />
+          {/* mirrored frustum */}
+          <path
+            d={`M${panelX + 4},${panelTop + 16} L${panelX + 4},${panelBottom - 16} L${splashRight},${horizon} L${splashLeft},${horizon} Z`}
+            fill="url(#san-d-beam)"
+          />
+        </g>
+
+        <text
+          x={W - 6}
+          y={H - 6}
+          textAnchor="end"
+          fill="#9d00ff"
+          fontSize="7"
+          opacity={0.7}
+          fontFamily="ui-monospace, monospace"
+        >
+          planar reflection (RT)
+        </text>
+      </svg>
+    </DiagramFrame>
+  );
+}
+
 /* ---------- Inkwell: Stable Fluids per-frame cycle ---------- */
 
 export function InkwellCycleDiagram() {

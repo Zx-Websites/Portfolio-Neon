@@ -22,7 +22,7 @@ export default function ProjectShell({
   children
 }: {
   project: Project;
-  accent?: "cyan" | "pink" | "lime" | "purple" | "amber";
+  accent?: "cyan" | "pink" | "lime" | "purple" | "amber" | "rose";
   glyph?: ReactNode;
   children: ReactNode;
 }) {
@@ -40,7 +40,8 @@ export default function ProjectShell({
     pink: "#ff2bd6",
     lime: "#b6ff00",
     purple: "#9d00ff",
-    amber: "#ffae3d"
+    amber: "#ffae3d",
+    rose: "#ff5e8a"
   }[accent];
 
   const accentClass = {
@@ -48,7 +49,8 @@ export default function ProjectShell({
     pink: "text-neon-pink",
     lime: "text-neon-lime",
     purple: "text-neon-purple",
-    amber: "text-neon-amber"
+    amber: "text-neon-amber",
+    rose: "text-neon-rose"
   }[accent];
 
   return (

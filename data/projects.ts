@@ -71,6 +71,17 @@ export const projects: Project[] = [
     itchUrl: "https://zxdelt.itch.io/inkwell",
     year: 2026,
     featured: true
+  },
+  {
+    id: "sanctum",
+    title: "Sanctum",
+    tagline: "A small temple, lit by colored light",
+    description:
+      "Procedurally rendered cathedral — stained glass, god-rays, mirror floor",
+    tags: ["Unity", "C#", "Shaders"],
+    itchUrl: "https://zxdelt.itch.io/sanctum",
+    year: 2026,
+    featured: true
   }
   
   // {

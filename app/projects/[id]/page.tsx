@@ -6,9 +6,10 @@ import FallingSandContent, { fallingSandGlyph } from "@/components/projects/cont
 import OceanTankContent, { oceanTankGlyph } from "@/components/projects/content/OceanTankContent";
 import KaleidoscopeContent, { kaleidoscopeGlyph } from "@/components/projects/content/KaleidoscopeContent";
 import InkwellContent, { inkwellGlyph } from "@/components/projects/content/InkwellContent";
+import SanctumContent, { sanctumGlyph } from "@/components/projects/content/SanctumContent";
 import type { Metadata } from "next";
 
-type Accent = "cyan" | "pink" | "lime" | "purple" | "amber";
+type Accent = "cyan" | "pink" | "lime" | "purple" | "amber" | "rose";
 
 const REGISTRY: Record<
   string,
@@ -38,6 +39,11 @@ const REGISTRY: Record<
     accent: "amber",
     glyph: inkwellGlyph,
     Content: InkwellContent
+  },
+  "sanctum": {
+    accent: "rose",
+    glyph: sanctumGlyph,
+    Content: SanctumContent
   }
 };
 

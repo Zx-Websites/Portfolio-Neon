@@ -17,14 +17,15 @@ export function Block({
   kicker?: string;
   title: string;
   children: ReactNode;
-  accent?: "cyan" | "pink" | "lime" | "purple" | "amber";
+  accent?: "cyan" | "pink" | "lime" | "purple" | "amber" | "rose";
 }) {
   const accentClass = {
     cyan: "text-neon-cyan",
     pink: "text-neon-pink",
     lime: "text-neon-lime",
     purple: "text-neon-purple",
-    amber: "text-neon-amber"
+    amber: "text-neon-amber",
+    rose: "text-neon-rose"
   }[accent];
 
   return (

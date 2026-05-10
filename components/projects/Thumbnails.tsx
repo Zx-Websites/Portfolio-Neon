@@ -608,6 +608,249 @@ export function InkwellThumb() {
   );
 }
 
+/* -------- Sanctum -------- */
+
+export function SanctumThumb() {
+  // Cathedral cross-section: stained-glass window centered, god-rays cutting down
+  // through dust, colored splash pools on a polished floor (reflected), pew silhouettes
+  // flanking the aisle, candle warmth on the side walls.
+  const cx = VW / 2;
+  // 3×3 panel grid in the back wall
+  const panelGrid: { col: number; row: number; color: string }[] = [];
+  const palette = [
+    "#ff5e8a", // rose
+    "#5b9aff", // cobalt
+    "#65e88a", // emerald
+    "#ffc857", // amber
+    "#c477ff", // violet
+    "#ff3b3b", // crimson
+    "#5fe0e8", // aqua
+    "#f5efdc", // pearl
+    "#ff8a3d"  // copper
+  ];
+  let pi = 0;
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      panelGrid.push({ col, row, color: palette[pi++] });
+    }
+  }
+
+  const gridLeft = cx - 42;
+  const gridTop = 12;
+  const cellW = 28;
+  const cellH = 22;
+  const gridRight = gridLeft + 3 * cellW;
+  const gridBottom = gridTop + 3 * cellH;
+  const floorY = VH - 22;
+
+  // We pick three diagonal beams from three panels (top row of grid) so the
+  // page doesn't get murdered by 9 overlapping additive cones.
+  const beamSources = [
+    { panelIdx: 0, color: palette[0] }, // top-left → rose
+    { panelIdx: 1, color: palette[1] }, // top-mid → cobalt
+    { panelIdx: 2, color: palette[2] }  // top-right → emerald
+  ];
+
+  return (
+    <svg viewBox={`0 0 ${VW} ${VH}`} className="h-full w-full">
+      <defs>
+        <linearGradient id="san-bg" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#0a0510" />
+          <stop offset="100%" stopColor="#02010a" />
+        </linearGradient>
+        <linearGradient id="san-floor" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#1c1418" />
+          <stop offset="100%" stopColor="#070409" />
+        </linearGradient>
+        {/* one beam gradient per source — additive, color → transparent */}
+        {beamSources.map((b, i) => (
+          <linearGradient
+            key={i}
+            id={`san-beam-${i}`}
+            x1="0"
+            x2="0"
+            y1="0"
+            y2="1"
+          >
+            <stop offset="0%" stopColor={b.color} stopOpacity="0.8" />
+            <stop offset="60%" stopColor={b.color} stopOpacity="0.32" />
+            <stop offset="100%" stopColor={b.color} stopOpacity="0" />
+          </linearGradient>
+        ))}
+        {/* candle glow */}
+        <radialGradient id="san-candle" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#fff8b8" stopOpacity="0.95" />
+          <stop offset="40%" stopColor="#ffae3d" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#ffae3d" stopOpacity="0" />
+        </radialGradient>
+        {/* window halo behind glass */}
+        <radialGradient id="san-halo" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stopColor="#fff" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* Chamber wall */}
+      <rect x={0} y={0} width={VW} height={floorY} fill="url(#san-bg)" />
+
+      {/* Window halo (light bleeding around the glass) */}
+      <ellipse cx={cx} cy={48} rx={80} ry={50} fill="url(#san-halo)" />
+
+      {/* Pointed-arch shape above the window — two stone slants */}
+      <path
+        d={`M${gridLeft - 2},${gridTop} L${cx},${gridTop - 18} L${gridRight + 2},${gridTop} Z`}
+        fill="#231a26"
+        stroke="#3a2c40"
+        strokeWidth={0.5}
+      />
+
+      {/* Three god-ray beams from the top row, with subtle additive vibration */}
+      {beamSources.map((b, i) => {
+        const sourceX = gridLeft + (b.panelIdx + 0.5) * cellW;
+        const sourceY = gridTop;
+        // beams fan slightly outward and downward
+        const fanOut = (b.panelIdx - 1) * 22;
+        const tipLeft = sourceX - 14 + fanOut * 0.3;
+        const tipRight = sourceX + 14 + fanOut * 0.3;
+        const baseLeft = sourceX - 30 + fanOut;
+        const baseRight = sourceX + 30 + fanOut;
+        return (
+          <motion.g key={i}>
+            <motion.path
+              d={`M${tipLeft},${sourceY} L${tipRight},${sourceY} L${baseRight},${floorY} L${baseLeft},${floorY} Z`}
+              fill={`url(#san-beam-${i})`}
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 4 + i * 0.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+              style={{ mixBlendMode: "screen" as const }}
+            />
+            {/* colored splash on the floor at the base */}
+            <motion.ellipse
+              cx={(baseLeft + baseRight) / 2}
+              cy={floorY + 1}
+              rx={(baseRight - baseLeft) / 2 + 4}
+              ry={4}
+              fill={b.color}
+              opacity={0.55}
+              animate={{ opacity: [0.4, 0.7, 0.4] }}
+              transition={{ duration: 4 + i * 0.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+              style={{ filter: `drop-shadow(0 0 4px ${b.color}cc)` }}
+            />
+          </motion.g>
+        );
+      })}
+
+      {/* Stained-glass panel grid — each cell glows its own color */}
+      {panelGrid.map((p, i) => (
+        <motion.rect
+          key={i}
+          x={gridLeft + p.col * cellW + 1}
+          y={gridTop + p.row * cellH + 1}
+          width={cellW - 2}
+          height={cellH - 2}
+          fill={p.color}
+          rx={1.5}
+          animate={{ opacity: [0.85, 1, 0.85] }}
+          transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: (i * 0.2) % 2 }}
+          style={{ filter: `drop-shadow(0 0 3px ${p.color})` }}
+        />
+      ))}
+
+      {/* Lead frame — vertical and horizontal strips */}
+      {[1, 2].map((c) => (
+        <line
+          key={`v${c}`}
+          x1={gridLeft + c * cellW}
+          y1={gridTop}
+          x2={gridLeft + c * cellW}
+          y2={gridBottom}
+          stroke="#1a1620"
+          strokeWidth={2}
+        />
+      ))}
+      {[1, 2].map((r) => (
+        <line
+          key={`h${r}`}
+          x1={gridLeft}
+          y1={gridTop + r * cellH}
+          x2={gridRight}
+          y2={gridTop + r * cellH}
+          stroke="#1a1620"
+          strokeWidth={2}
+        />
+      ))}
+      {/* Window outer frame */}
+      <rect
+        x={gridLeft}
+        y={gridTop}
+        width={3 * cellW}
+        height={3 * cellH}
+        fill="none"
+        stroke="#3a2c40"
+        strokeWidth={1}
+      />
+
+      {/* Floor */}
+      <rect x={0} y={floorY} width={VW} height={VH - floorY} fill="url(#san-floor)" />
+      {/* Floor reflection of the window — desaturated, flipped */}
+      <g
+        transform={`translate(${cx}, ${floorY * 2 + 6}) scale(1, -1) translate(${-cx}, 0)`}
+        opacity={0.22}
+      >
+        {panelGrid.map((p, i) => (
+          <rect
+            key={`r${i}`}
+            x={gridLeft + p.col * cellW + 1}
+            y={gridTop + p.row * cellH + 1}
+            width={cellW - 2}
+            height={cellH - 2}
+            fill={p.color}
+            rx={1.5}
+          />
+        ))}
+      </g>
+
+      {/* Pew silhouettes flanking the aisle */}
+      {[
+        { x: 18, y: floorY - 14 },
+        { x: 50, y: floorY - 12 },
+        { x: 254, y: floorY - 14 },
+        { x: 286, y: floorY - 12 }
+      ].map((pw, i) => (
+        <rect
+          key={i}
+          x={pw.x}
+          y={pw.y}
+          width={26}
+          height={8}
+          rx={1}
+          fill="#1a0f0a"
+          stroke="#2c1d12"
+          strokeWidth={0.5}
+        />
+      ))}
+
+      {/* Two flickering candle sconces on the side walls */}
+      {[
+        { x: 18, y: floorY - 50 },
+        { x: VW - 18, y: floorY - 50 }
+      ].map((c, i) => (
+        <g key={i}>
+          <ellipse cx={c.x} cy={c.y} rx={14} ry={18} fill="url(#san-candle)" />
+          <motion.circle
+            cx={c.x}
+            cy={c.y}
+            r={1.6}
+            fill="#fff8b8"
+            animate={{ r: [1.4, 1.9, 1.4], opacity: [0.85, 1, 0.85] }}
+            transition={{ duration: 0.9 + i * 0.2, repeat: Infinity, ease: "easeInOut" }}
+            style={{ filter: "drop-shadow(0 0 3px #ffae3d)" }}
+          />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 /* -------- Map -------- */
 
 export const THUMBS: Record<string, React.ComponentType> = {
@@ -615,5 +858,6 @@ export const THUMBS: Record<string, React.ComponentType> = {
   "physics-sandbox": PhysicsSandboxThumb,
   "ocean-tank": OceanTankThumb,
   "kaleidoscope": KaleidoscopeThumb,
-  "inkwell": InkwellThumb
+  "inkwell": InkwellThumb,
+  "sanctum": SanctumThumb
 };
