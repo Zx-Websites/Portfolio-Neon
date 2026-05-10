@@ -112,6 +112,16 @@ export default function Page() {
           </p>
           <div className="flex flex-wrap gap-2">
             <motion.a
+              href="/Jayant_Bodse_Resume.pdf"
+              download
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.95 }}
+              className="group rounded-md border border-white/20 bg-white px-3 py-1.5 text-xs font-mono text-black/90 hover:bg-white/90"
+            >
+              <span className="text-neon-pink">//</span> résumé.pdf
+              <span className="ml-1.5 inline-block transition-transform group-hover:translate-y-0.5">↓</span>
+            </motion.a>
+            <motion.a
               href="mailto:j.bodse98@gmail.com"
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}

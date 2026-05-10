@@ -7,8 +7,15 @@ import ScrollProgress from "@/components/ScrollProgress";
 import AnimatedFavicon from "@/components/AnimatedFavicon";
 
 export const metadata: Metadata = {
-  title: "ZxDelt",
-  description: "Game dev & creative projects portfolio."
+  metadataBase: new URL("https://zxportfolio.vercel.app"),
+  title: "ZxDelt — Jayant Bodse",
+  description: "Game dev & creative projects portfolio.",
+  openGraph: {
+    title: "ZxDelt — Jayant Bodse",
+    description: "Solo dev shipping experimental games and tools.",
+    url: "https://zxportfolio.vercel.app",
+    siteName: "ZxDelt"
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

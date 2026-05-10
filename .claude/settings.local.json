@@ -12,7 +12,8 @@
       "Bash(curl -s -o nul -w \"%{http_code}\" http://localhost:3737/projects/does-not-exist)",
       "Bash(curl -s http://localhost:3737/projects/particle-galaxy)",
       "Bash(curl -s http://localhost:3737/projects/ocean-tank)",
-      "Bash(curl -s http://localhost:3737/)"
+      "Bash(curl -s http://localhost:3737/)",
+      "PowerShell($edge = @\\(\"C:\\\\Program Files \\(x86\\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\",\"C:\\\\Program Files\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\"\\) | Where-Object { Test-Path $_ } | Select-Object -First 1; if \\($edge\\) { Write-Output \"EDGE_PATH=$edge\" } else { Write-Output \"NO_EDGE\"; $chrome = @\\(\"C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\",\"C:\\\\Program Files \\(x86\\)\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\"\\) | Where-Object { Test-Path $_ } | Select-Object -First 1; if \\($chrome\\) { Write-Output \"CHROME_PATH=$chrome\" } else { Write-Output \"NO_CHROME\" } })"
     ]
   }
 }

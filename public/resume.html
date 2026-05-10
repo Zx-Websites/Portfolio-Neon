@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Jayant Bodse — Resume</title>
+<meta name="description" content="Resume of Jayant Bodse — Unity developer & creative coder. Indore, India." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600&display=block"
+  rel="stylesheet"
+/>
+<style>
+  /* ──────────────────────────────────────────────────────────────
+     PRINT FOUNDATION
+     ────────────────────────────────────────────────────────────── */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  :root {
+    --ink:       #11131a;
+    --ink-soft:  #2a2c36;
+    --muted:     #6b6b78;
+    --muted-2:   #9a99a4;
+    --paper:     #ffffff;
+    --rule:      #e2dfd6;
+    --rule-soft: #ececea;
+    --accent:    #008cb4;   /* CMYK-friendly cyan */
+    --accent-2:  #d4145c;   /* CMYK-friendly magenta */
+    --accent-faint: #e6f4f9;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #d7d7d7;            /* outside the page on screen */
+    color: var(--ink);
+    font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-feature-settings: "ss01" on, "cv11" on;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* a single page is exactly A4 */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    background: var(--paper);
+    margin: 12mm auto;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.10);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  @media print {
+    html, body { background: var(--paper); }
+    .page { margin: 0; box-shadow: none; }
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     PAGE 1
+     ────────────────────────────────────────────────────────────── */
+  .p1 {
+    padding: 12mm 13mm 10mm 13mm;
+    display: grid;
+    grid-template-columns: 58mm 1fr;
+    column-gap: 8mm;
+    row-gap: 0;
+  }
+
+  /* HEADER spans both columns */
+  .head {
+    grid-column: 1 / -1;
+    margin-bottom: 5mm;
+  }
+
+  .head .meta-line {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 7.4pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 4mm 0;
+  }
+  .head .meta-line .slash {
+    color: var(--accent-2);
+    margin-right: 0.5em;
+  }
+
+  .head h1 {
+    margin: 0;
+    font-family: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    font-weight: 350;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+    font-size: 50pt;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .head h1 em {
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: "opsz" 144, "SOFT" 80;
+    color: var(--accent-2);
+  }
+
+  .head .role {
+    margin: 3mm 0 0 0;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 10.5pt;
+    color: var(--ink-soft);
+    letter-spacing: 0.005em;
+  }
+
+  .head .rule-row {
+    margin-top: 4mm;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 4mm;
+  }
+  .head .rule-row .rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 30%, var(--rule) 30%, var(--rule) 100%);
+  }
+  .head .rule-row .stamp {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.2pt;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* CONTACT STRIP */
+  .contact {
+    grid-column: 1 / -1;
+    margin: 0 0 4mm 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 3mm;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.8pt;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .contact a { color: var(--ink-soft); text-decoration: none; border-bottom: 0.5px solid var(--rule); padding-bottom: 1px; }
+  .contact .sep { color: var(--accent); }
+  .contact .primary { color: var(--accent); font-weight: 500; }
+  .contact .primary a { color: var(--accent); border-bottom-color: var(--accent); }
+  .contact .primary .arrow { color: var(--accent-2); margin-left: 0.2em; }
+
+  /* LEFT RAIL */
+  .rail { padding-top: 0; }
+  .main { padding-top: 0; }
+
+  /* SECTION HEADERS — same on both columns */
+  .sec-h {
+    display: flex;
+    align-items: baseline;
+    gap: 3mm;
+    margin: 0 0 3mm 0;
+  }
+  .sec-h .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7pt;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .sec-h .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .sec-h .line {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .rail .block { margin-bottom: 6mm; }
+  .rail .block:last-child { margin-bottom: 0; }
+
+  .rail .body {
+    font-size: 9pt;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .rail .body p { margin: 0 0 2mm 0; }
+  .rail .body p:last-child { margin-bottom: 0; }
+
+  .rail dl { margin: 0; }
+  .rail dt {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 0.6mm 0;
+  }
+  .rail dd {
+    margin: 0 0 2.4mm 0;
+    font-size: 9pt;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .rail dd:last-child { margin-bottom: 0; }
+  .rail dd em {
+    display: block;
+    font-style: normal;
+    font-size: 8pt;
+    color: var(--muted);
+    margin-top: 0.3mm;
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* MAIN COLUMN */
+  .main .summary {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 350;
+    font-variation-settings: "opsz" 24, "SOFT" 50;
+    font-size: 10.5pt;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0 0 5mm 0;
+    text-wrap: pretty;
+  }
+  .main .summary em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 24, "SOFT" 80;
+  }
+
+  .xp-block { margin-bottom: 3.4mm; page-break-inside: avoid; break-inside: avoid; }
+  .xp-block:last-child { margin-bottom: 0; }
+  .xp-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3mm;
+    align-items: baseline;
+  }
+  .xp-title {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-variation-settings: "opsz" 36, "SOFT" 30;
+    font-size: 11pt;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .xp-org {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    font-size: 9pt;
+    color: var(--accent);
+    margin-top: 0.3mm;
+  }
+  .xp-org .dot { color: var(--muted-2); margin: 0 0.4em; }
+  .xp-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.4pt;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    text-align: right;
+    line-height: 1.5;
+  }
+  .xp-desc {
+    margin: 1.2mm 0 0 0;
+    font-size: 8.8pt;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+  .xp-desc strong { color: var(--ink); font-weight: 500; }
+
+  .earlier {
+    font-size: 8.4pt;
+    color: var(--muted);
+    line-height: 1.4;
+    border-top: 0.5px solid var(--rule);
+    padding-top: 2mm;
+    margin-top: 3mm;
+  }
+  .earlier strong { color: var(--ink-soft); font-weight: 500; }
+
+  /* ──────────────────────────────────────────────────────────────
+     PAGE 2 — FEATURED WORK (magazine TOC feel)
+     ────────────────────────────────────────────────────────────── */
+  .p2 {
+    padding: 12mm 13mm 10mm 13mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .p2 .super {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 2mm;
+  }
+  .p2 .super .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.4pt;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .p2 .super .pageno {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.4pt;
+    color: var(--muted);
+    letter-spacing: 0.18em;
+  }
+
+  .p2 h2 {
+    margin: 0 0 1mm 0;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 350;
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 80;
+    font-size: 32pt;
+    line-height: 1;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+  }
+  .p2 h2 .amp {
+    color: var(--accent-2);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .p2 .sub {
+    margin: 0 0 5mm 0;
+    font-family: "DM Sans", sans-serif;
+    font-size: 9.5pt;
+    color: var(--muted);
+    max-width: 130mm;
+    line-height: 1.4;
+  }
+
+  .p2 .group-h {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    margin: 0 0 2mm 0;
+  }
+  .p2 .group-h .tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.4pt;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .p2 .group-h .pill {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 6.8pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-faint);
+    padding: 0.7mm 2mm;
+    border-radius: 9999px;
+  }
+  .p2 .group-h .line {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .toc {
+    margin: 0 0 4mm 0;
+  }
+  .toc-row {
+    display: grid;
+    grid-template-columns: 10mm 1fr auto;
+    column-gap: 4mm;
+    align-items: baseline;
+    padding: 1.8mm 0;
+    border-bottom: 0.5px solid var(--rule-soft);
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .toc-row:first-child { border-top: 0.5px solid var(--rule-soft); }
+  .toc-row .idx {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+    font-size: 8.4pt;
+    color: var(--accent-2);
+    letter-spacing: 0.04em;
+  }
+  .toc-row .ttl {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 450;
+    font-variation-settings: "opsz" 36, "SOFT" 50;
+    font-size: 11.5pt;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .toc-row .ttl .desc {
+    display: block;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 8.4pt;
+    color: var(--ink-soft);
+    margin-top: 0.4mm;
+    line-height: 1.35;
+  }
+  .toc-row .ttl .desc .tags {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7pt;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-left: 0.4em;
+  }
+  .toc-row .url {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.2pt;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .toc-row .url a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 0.5px solid transparent;
+  }
+
+  /* FOOTER signature */
+  .colophon {
+    margin-top: auto;
+    padding-top: 5mm;
+    border-top: 0.5px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7pt;
+    color: var(--muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .colophon .end { color: var(--accent); }
+
+  /* P1 footer */
+  .p1-foot {
+    grid-column: 1 / -1;
+    margin-top: 4mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7pt;
+    color: var(--muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .p1-foot .glyph { color: var(--accent-2); letter-spacing: 0; }
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 1
+     ════════════════════════════════════════════════════════════════ -->
+<article class="page p1">
+
+  <header class="head">
+    <p class="meta-line"><span class="slash">//</span> unity developer · creative coder · tool-builder</p>
+    <h1>Jayant <em>Bodse</em></h1>
+    <p class="role">Three years shipping Unity titles across mobile, AR, and VR — now building a portfolio of small, opinionated experiments in simulation and shader work.</p>
+    <div class="rule-row">
+      <span class="stamp">Résumé · 2026</span>
+      <span class="rule"></span>
+      <span class="stamp">Indore · IN</span>
+    </div>
+  </header>
+
+  <nav class="contact">
+    <span class="primary"><a href="https://zxportfolio.vercel.app">zxportfolio.vercel.app</a><span class="arrow">↗</span></span>
+    <span class="sep">·</span>
+    <span>j.bodse98@gmail.com</span>
+    <span class="sep">·</span>
+    <span>+91 99938 79519</span>
+    <span class="sep">·</span>
+    <span><a href="https://www.linkedin.com/in/jayant-bodse-21ab621a6/">linkedin.com/in/jayant-bodse</a></span>
+    <span class="sep">·</span>
+    <span><a href="https://zxdelt.itch.io">zxdelt.itch.io</a></span>
+    <span class="sep">·</span>
+    <span><a href="https://github.com/ZxDelt">github.com/ZxDelt</a></span>
+  </nav>
+
+  <!-- LEFT RAIL ────────────────────────────────────── -->
+  <aside class="rail">
+
+    <div class="block">
+      <div class="sec-h">
+        <span class="num">01.</span>
+        <span class="label">Stack</span>
+        <span class="line"></span>
+      </div>
+      <dl>
+        <dt>Engines</dt>
+        <dd>Unity (primary, 6.x) <em>Godot · Unreal · Construct 3 · GDevelop</em></dd>
+        <dt>Languages</dt>
+        <dd>C# <em>TypeScript · JavaScript · HTML/CSS · PHP</em></dd>
+        <dt>Specialties</dt>
+        <dd>Editor scripting · Shader work · Simulation<em>AR Foundation · XR Toolkit (Meta Quest) · Photon PUN multiplayer</em></dd>
+        <dt>Web</dt>
+        <dd>React · Next.js · Firebase · REST APIs</dd>
+        <dt>DCC &amp; Tooling</dt>
+        <dd>Photoshop · Blender · Audacity · Git · async pipelines · JSON-driven config</dd>
+      </dl>
+    </div>
+
+    <div class="block">
+      <div class="sec-h">
+        <span class="num">02.</span>
+        <span class="label">Education</span>
+        <span class="line"></span>
+      </div>
+      <dl>
+        <dt>2019 — 2022</dt>
+        <dd>BSc, Information Technology<em>Maharaja Ranjit Singh College of Professional Sciences, Indore</em></dd>
+        <dt>2017 — 2018</dt>
+        <dd>Higher Secondary (12<sup>th</sup>)<em>Marthoma H.S. School, Indore</em></dd>
+      </dl>
+    </div>
+
+    <div class="block">
+      <div class="sec-h">
+        <span class="num">03.</span>
+        <span class="label">Strengths</span>
+        <span class="line"></span>
+      </div>
+      <div class="body">
+        <p>Scalable architecture · performance tuning · technical mentorship · cross-platform delivery · workflow automation · knowledge transfer.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="sec-h">
+        <span class="num">04.</span>
+        <span class="label">Languages</span>
+        <span class="line"></span>
+      </div>
+      <div class="body">
+        <p>English · Hindi</p>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN COLUMN ────────────────────────────────────── -->
+  <section class="main">
+
+    <p class="summary">
+      I build small, self-contained experiences — games, tools, simulations — that try to do <em>one thing well</em>. Three professional years across mobile multiplayer, AR Foundation, and Meta Quest VR; the last year spent independently shipping shader-driven Unity experiments on itch.io. Equal parts game dev and tool-smith — most days I'm extending the editor or rendering pipeline before I write a single line of gameplay.
+    </p>
+
+    <div class="sec-h" style="margin-bottom: 4mm;">
+      <span class="num">05.</span>
+      <span class="label">Experience</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="xp-block">
+      <div class="xp-row">
+        <div>
+          <div class="xp-title">Independent Game Developer &amp; Creative Coder</div>
+          <div class="xp-org">Solo · self-directed</div>
+        </div>
+        <div class="xp-meta">Mar 2025 — Present</div>
+      </div>
+      <p class="xp-desc">Shipping a portfolio of small-scope Unity experiments on itch.io: real-time water sim with ripple interaction, GPU particle galaxies, audio-reactive kaleidoscopes, ink simulation, procedurally-lit cathedrals. Each release is a self-contained study in <strong>shader work, rendering pipelines, and tactile interaction</strong> — built and shipped in days, not months.</p>
+    </div>
+
+    <div class="xp-block">
+      <div class="xp-row">
+        <div>
+          <div class="xp-title">Team Lead &amp; Game Dev Mentor</div>
+          <div class="xp-org">The Upthrust</div>
+        </div>
+        <div class="xp-meta">Oct 2024 — Feb 2025</div>
+      </div>
+      <p class="xp-desc">Led a small Unity team and mentored junior developers through fundamentals, code reviews, and project hand-offs. Authored editor tooling — folder/hierarchy automation and an <strong>image-to-sprite</strong> pipeline — that standardised project setup across every new repo.</p>
+    </div>
+
+    <div class="xp-block">
+      <div class="xp-row">
+        <div>
+          <div class="xp-title">Senior Unity Developer</div>
+          <div class="xp-org">Futuristic Business Solutions</div>
+        </div>
+        <div class="xp-meta">Apr 2024 — Sept 2024</div>
+      </div>
+      <p class="xp-desc">Built a <strong>Meta Quest VR sandbox</strong> with Unity XR Toolkit (hand tracking, physics-based grab/throw, haptics; profiled for stable 6DoF). Developed an in-editor Custom Logger for filtered, color-coded, exportable runtime logs. Shipped a reusable async REST client (<strong>HttpClient · async/await</strong>) with token auth, retries, and JSON parsing; plus an AR Location quest system on AR Foundation + Mapbox with geofenced triggers.</p>
+    </div>
+
+    <div class="xp-block">
+      <div class="xp-row">
+        <div>
+          <div class="xp-title">Senior Unity Developer / Team Lead</div>
+          <div class="xp-org">Rishu's Infotech</div>
+        </div>
+        <div class="xp-meta">Dec 2023 — Mar 2024</div>
+      </div>
+      <p class="xp-desc">Led AR Foundation projects: <strong>AR Coloring</strong> (3D animated models aligned to children's drawings) and <strong>Multi-Image AR Detection</strong> (parallel image-target tracking with state-preserved content swapping). Mentored the team on cross-platform Android/iOS build pipelines.</p>
+    </div>
+
+    <div class="xp-block">
+      <div class="xp-row">
+        <div>
+          <div class="xp-title">Junior Unity Developer</div>
+          <div class="xp-org">Webmobril Gaming Studios</div>
+        </div>
+        <div class="xp-meta">Oct 2022 — Nov 2023</div>
+      </div>
+      <p class="xp-desc">Shipped a real-time <strong>4-player Ludo Multiplayer</strong> on Photon PUN: turn synchronisation, room/lobby creation, reconnect logic, anti-cheat validation, emoji chat, and matchmaking with dynamic UI transitions.</p>
+    </div>
+
+    <p class="earlier">
+      <strong>Earlier</strong> — Freelance Web &amp; Game Developer (Dec 2021 — Sept 2022) · Web Dev Intern, Broadcast Co (Apr 2021 — Nov 2021).
+    </p>
+
+  </section>
+
+  <footer class="p1-foot">
+    <span>page 01 / 02</span>
+    <span class="glyph">◆</span>
+    <span>continued →</span>
+  </footer>
+
+</article>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 2 — FEATURED WORK
+     ════════════════════════════════════════════════════════════════ -->
+<article class="page p2">
+
+  <div class="super">
+    <span class="kicker">// featured work</span>
+    <span class="pageno">page 02 / 02</span>
+  </div>
+
+  <h2>Selected <span class="amp">&amp;</span> shipped.</h2>
+  <p class="sub">A reading list of recent Unity work — six independent 2026 releases on itch.io, then a slice of professional projects that defined the last three years.</p>
+
+  <!-- INDEPENDENT 2026 ─────────────────────────────────────── -->
+  <div class="group-h">
+    <span class="tag">Independent</span>
+    <span class="pill">2026 · itch.io</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="toc">
+
+    <div class="toc-row">
+      <div class="idx">01</div>
+      <div class="ttl">Ocean Tank
+        <span class="desc">A miniature water tank with real-time ripple interaction. Custom water shader, surface tension feel, click-to-disturb. <span class="tags">Unity · C# · Shaders</span></span>
+      </div>
+      <div class="url"><a href="https://zxdelt.itch.io/oceantank">zxdelt.itch.io/oceantank</a></div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">02</div>
+      <div class="ttl">Sanctum
+        <span class="desc">A small temple lit by coloured light — procedurally-rendered cathedral with stained glass, god-rays, and a mirror floor. <span class="tags">Unity · C# · Shaders</span></span>
+      </div>
+      <div class="url"><a href="https://zxdelt.itch.io/sanctum">zxdelt.itch.io/sanctum</a></div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">03</div>
+      <div class="ttl">Kaleidoscope
+        <span class="desc">Audio-reactive procedural visuals — live music drives the geometry and colour fields in real time. <span class="tags">Unity · C# · Reactive systems</span></span>
+      </div>
+      <div class="url"><a href="https://zxdelt.itch.io/kaleidoscope">zxdelt.itch.io/kaleidoscope</a></div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">04</div>
+      <div class="ttl">Particle Galaxy
+        <span class="desc">A GPU-driven star simulation. Minimal interaction, maximal vibe — built around large-scale particle counts. <span class="tags">Unity · C# · GPU</span></span>
+      </div>
+      <div class="url"><a href="https://zxdelt.itch.io/particle-galaxy">zxdelt.itch.io/particle-galaxy</a></div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">05</div>
+      <div class="ttl">Inkwell
+        <span class="desc">A drawing surface that simulates the spread and bleed of ink. Toy by design; satisfying to use. <span class="tags">Unity · C# · Simulation</span></span>
+      </div>
+      <div class="url"><a href="https://zxdelt.itch.io/inkwell">zxdelt.itch.io/inkwell</a></div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">06</div>
+      <div class="ttl">Physics Sandbox
+        <span class="desc">A toy physics playground for unstructured play — forces, materials, constraints, observation. <span class="tags">Unity · C# · Physics</span></span>
+      </div>
+      <div class="url"><a href="https://zxdelt.itch.io/physics-sandbox">zxdelt.itch.io/physics-sandbox</a></div>
+    </div>
+
+  </div>
+
+  <!-- PROFESSIONAL ─────────────────────────────────────── -->
+  <div class="group-h">
+    <span class="tag">Professional</span>
+    <span class="pill">2022 — 2025</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="toc">
+
+    <div class="toc-row">
+      <div class="idx">07</div>
+      <div class="ttl">Ludo Multiplayer (Photon PUN)
+        <span class="desc">Real-time 4-player networked Ludo: turn sync, lobby/room creation, reconnect, anti-cheat, emoji chat. <span class="tags">Unity · C# · Networking</span></span>
+      </div>
+      <div class="url">Webmobril Gaming Studios</div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">08</div>
+      <div class="ttl">Meta Quest Object Interaction (XR Toolkit)
+        <span class="desc">VR sandbox with hand tracking, physics-based grab/throw, haptics, profiled for stable 6DoF performance. <span class="tags">Unity · XR · VR</span></span>
+      </div>
+      <div class="url">Futuristic Business Solutions</div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">09</div>
+      <div class="ttl">Custom Logger Unity Tool
+        <span class="desc">Editor extension for filtered, colour-coded, time-stamped runtime logs with QA session export. <span class="tags">Unity · Editor scripting</span></span>
+      </div>
+      <div class="url">Internal tool</div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">10</div>
+      <div class="ttl">REST API Async Client (Unity)
+        <span class="desc">Reusable HTTP client built on HttpClient + async/await — token auth, retries, JSON, error paths. <span class="tags">Unity · C# · Networking</span></span>
+      </div>
+      <div class="url">Internal tool</div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">11</div>
+      <div class="ttl">AR Location (AR Foundation + Mapbox)
+        <span class="desc">GPS-anchored AR experiences with route markers, geofenced triggers, and a story-driven quest system. <span class="tags">Unity · AR · GPS</span></span>
+      </div>
+      <div class="url">Futuristic Business Solutions</div>
+    </div>
+
+    <div class="toc-row">
+      <div class="idx">12</div>
+      <div class="ttl">AR Coloring &amp; Multi-Image Detection
+        <span class="desc">Image-target AR with 3D-model alignment to children's drawings; parallel multi-target tracking. <span class="tags">Unity · AR Foundation</span></span>
+      </div>
+      <div class="url">Rishu's Infotech</div>
+    </div>
+
+  </div>
+
+  <footer class="colophon">
+    <span>set in fraunces &amp; jetbrains mono</span>
+    <span><span class="end">— end —</span></span>
+    <span>j.bodse98@gmail.com</span>
+  </footer>
+
+</article>
+
+</body>
+</html>
