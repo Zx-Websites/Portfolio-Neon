@@ -88,7 +88,7 @@ export const projects: Project[] = [
     title: "Probe",
     tagline: "Lyrics that move with the music",
     description:
-      "Apple Music-style player with word-aligned lyrics, magic-word neon glow, and a 4-band spectrum reactive backdrop",
+      "Under Developement, Apple Music-style player with word-aligned lyrics, magic-word neon glow, and a 4-band spectrum reactive backdrop",
     tags: ["Unity", "C#", "UI Toolkit", "Audio"],
     year: 2026,
     featured: true
