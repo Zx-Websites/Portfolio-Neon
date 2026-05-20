@@ -17,7 +17,7 @@ export function Block({
   kicker?: string;
   title: string;
   children: ReactNode;
-  accent?: "cyan" | "pink" | "lime" | "purple" | "amber" | "rose";
+  accent?: "cyan" | "pink" | "lime" | "purple" | "amber" | "rose" | "blue";
 }) {
   const accentClass = {
     cyan: "text-neon-cyan",
@@ -25,7 +25,8 @@ export function Block({
     lime: "text-neon-lime",
     purple: "text-neon-purple",
     amber: "text-neon-amber",
-    rose: "text-neon-rose"
+    rose: "text-neon-rose",
+    blue: "text-neon-blue"
   }[accent];
 
   return (

@@ -851,6 +851,159 @@ export function SanctumThumb() {
   );
 }
 
+/* -------- Probe -------- */
+
+export function ProbeThumb() {
+  // Four neon corner blobs (mirrors LyricPulse's bg-blob palette), a central
+  // lyric strip with one glowing magic word, and a 4-dot equalizer at the
+  // bottom representing the bass/vocal/mid/treble visualiser. Light motion only
+  // — magic word color cycles, dots scale to a fake spectrum.
+  const blobs = [
+    { cx: 38, cy: 40, color: "#00e5ff" },   // cyan
+    { cx: VW - 38, cy: 42, color: "#ff2d9c" }, // hot pink
+    { cx: 50, cy: VH - 36, color: "#a78bfa" }, // lavender purple
+    { cx: VW - 50, cy: VH - 32, color: "#65eaa8" } // light green
+  ];
+
+  const lyricRow = [
+    { x: 30, w: 22, dim: true },
+    { x: 58, w: 36, dim: true },
+    { x: 102, w: 60, dim: false }, // magic
+    { x: 170, w: 28, dim: true },
+    { x: 204, w: 32, dim: true },
+    { x: 242, w: 26, dim: true }
+  ];
+
+  // 4 spectrum dots — bass, vocal, mid, treble
+  const dots = [
+    { x: VW / 2 - 36, color: "#00f0ff", base: 4.5, amp: 1.8, speed: 0.9, phase: 0 },
+    { x: VW / 2 - 12, color: "#ff2bd6", base: 6.5, amp: 2.4, speed: 0.55, phase: 0.6 },
+    { x: VW / 2 + 12, color: "#c780ff", base: 5.0, amp: 2.0, speed: 0.7, phase: 1.2 },
+    { x: VW / 2 + 36, color: "#65eaa8", base: 3.8, amp: 1.4, speed: 1.1, phase: 1.8 }
+  ];
+
+  return (
+    <svg viewBox={`0 0 ${VW} ${VH}`} className="h-full w-full">
+      <defs>
+        <radialGradient id="pb-bg" cx="50%" cy="50%" r="65%">
+          <stop offset="0%" stopColor="#0d0820" />
+          <stop offset="100%" stopColor="#02010a" />
+        </radialGradient>
+        {blobs.map((b, i) => (
+          <radialGradient key={i} id={`pb-blob-${i}`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fff" stopOpacity="0.55" />
+            <stop offset="45%" stopColor={b.color} stopOpacity="0.55" />
+            <stop offset="100%" stopColor={b.color} stopOpacity="0" />
+          </radialGradient>
+        ))}
+      </defs>
+
+      <rect x={0} y={0} width={VW} height={VH} fill="url(#pb-bg)" />
+
+      {/* four corner neon blobs, gently breathing */}
+      {blobs.map((b, i) => (
+        <motion.ellipse
+          key={i}
+          cx={b.cx}
+          cy={b.cy}
+          rx={70}
+          ry={62}
+          fill={`url(#pb-blob-${i})`}
+          animate={{
+            rx: [70, 78, 70],
+            ry: [62, 56, 62],
+            opacity: [0.85, 1, 0.85]
+          }}
+          transition={{
+            duration: 5 + i * 0.6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.4
+          }}
+        />
+      ))}
+
+      {/* Apple-Music-style frosted glass strip behind the lyric */}
+      <rect x={20} y={66} width={VW - 40} height={32} rx={6} fill="rgba(255,255,255,0.04)" />
+
+      {/* lyric line — dim words flanking a glowing magic word that cycles color */}
+      {lyricRow.map((w, i) =>
+        w.dim ? (
+          <rect
+            key={i}
+            x={w.x}
+            y={80}
+            width={w.w}
+            height={5}
+            rx={1.5}
+            fill="#fff"
+            opacity={0.4}
+          />
+        ) : (
+          <motion.rect
+            key={i}
+            x={w.x}
+            y={76}
+            width={w.w}
+            height={13}
+            rx={2.5}
+            animate={{ fill: ["#5b9aff", "#c780ff", "#ff66c7", "#5b9aff"] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            style={{ filter: "drop-shadow(0 0 6px #5b9aff)" }}
+          />
+        )
+      )}
+
+      {/* prev sung line (faded) */}
+      <g opacity={0.4}>
+        <rect x={42} y={52} width={28} height={4} rx={1} fill="#fff" opacity={0.5} />
+        <rect x={76} y={52} width={50} height={4} rx={1} fill="#fff" opacity={0.5} />
+        <rect x={132} y={52} width={32} height={4} rx={1} fill="#fff" opacity={0.5} />
+        <rect x={168} y={52} width={44} height={4} rx={1} fill="#fff" opacity={0.5} />
+      </g>
+
+      {/* next line (more faded) */}
+      <g opacity={0.22}>
+        <rect x={54} y={106} width={30} height={4} rx={1} fill="#fff" opacity={0.5} />
+        <rect x={90} y={106} width={26} height={4} rx={1} fill="#fff" opacity={0.5} />
+        <rect x={122} y={106} width={48} height={4} rx={1} fill="#fff" opacity={0.5} />
+        <rect x={176} y={106} width={30} height={4} rx={1} fill="#fff" opacity={0.5} />
+      </g>
+
+      {/* 4-dot spectrum visualiser (waiting-dots style), scales to a fake spectrum */}
+      {dots.map((d, i) => (
+        <motion.circle
+          key={i}
+          cx={d.x}
+          cy={VH - 28}
+          fill={d.color}
+          animate={{ r: [d.base, d.base + d.amp, d.base] }}
+          transition={{
+            duration: 1.0 + d.speed,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: d.phase
+          }}
+          style={{ filter: `drop-shadow(0 0 5px ${d.color})` }}
+        />
+      ))}
+
+      {/* mini scrubber bar (Apple Music-y) */}
+      <rect x={32} y={VH - 12} width={VW - 64} height={2} rx={1} fill="#fff" opacity={0.18} />
+      <motion.rect
+        x={32}
+        y={VH - 12}
+        height={2}
+        rx={1}
+        fill="#fff"
+        opacity={0.85}
+        animate={{ width: [20, VW - 64, 20] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+      />
+    </svg>
+  );
+}
+
 /* -------- Map -------- */
 
 export const THUMBS: Record<string, React.ComponentType> = {
@@ -859,5 +1012,6 @@ export const THUMBS: Record<string, React.ComponentType> = {
   "ocean-tank": OceanTankThumb,
   "kaleidoscope": KaleidoscopeThumb,
   "inkwell": InkwellThumb,
-  "sanctum": SanctumThumb
+  "sanctum": SanctumThumb,
+  "probe": ProbeThumb
 };

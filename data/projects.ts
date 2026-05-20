@@ -82,8 +82,18 @@ export const projects: Project[] = [
     itchUrl: "https://zxdelt.itch.io/sanctum",
     year: 2026,
     featured: true
+  },
+  {
+    id: "probe",
+    title: "Probe",
+    tagline: "Lyrics that move with the music",
+    description:
+      "Apple Music-style player with word-aligned lyrics, magic-word neon glow, and a 4-band spectrum reactive backdrop",
+    tags: ["Unity", "C#", "UI Toolkit", "Audio"],
+    year: 2026,
+    featured: true
   }
-  
+
   // {
   //   id: "pixel-forge",
   //   title: "Pixel Forge",

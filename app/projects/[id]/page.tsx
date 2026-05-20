@@ -7,9 +7,10 @@ import OceanTankContent, { oceanTankGlyph } from "@/components/projects/content/
 import KaleidoscopeContent, { kaleidoscopeGlyph } from "@/components/projects/content/KaleidoscopeContent";
 import InkwellContent, { inkwellGlyph } from "@/components/projects/content/InkwellContent";
 import SanctumContent, { sanctumGlyph } from "@/components/projects/content/SanctumContent";
+import ProbeContent, { probeGlyph } from "@/components/projects/content/ProbeContent";
 import type { Metadata } from "next";
 
-type Accent = "cyan" | "pink" | "lime" | "purple" | "amber" | "rose";
+type Accent = "cyan" | "pink" | "lime" | "purple" | "amber" | "rose" | "blue";
 
 const REGISTRY: Record<
   string,
@@ -44,6 +45,11 @@ const REGISTRY: Record<
     accent: "rose",
     glyph: sanctumGlyph,
     Content: SanctumContent
+  },
+  "probe": {
+    accent: "blue",
+    glyph: probeGlyph,
+    Content: ProbeContent
   }
 };
 
